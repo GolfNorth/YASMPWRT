@@ -10,6 +10,8 @@ namespace YASMPWRT.Controllers
     {
         private MenuView _view;
         private MenuModel _model;
+        private readonly GameManager _gameManager;
+        private readonly AudioManager _audioManager;
 
         public MenuController(MenuView view, MenuItem[] menuItems)
         {
@@ -19,6 +21,11 @@ namespace YASMPWRT.Controllers
                 MenuItems = menuItems,
                 CurrentIndex = -1
             };
+            
+            _gameManager = Director.Instance.Get<GameManager>();
+            _audioManager = Director.Instance.Get<AudioManager>();
+            
+            _audioManager.PlayMusic();
 
             var inputManager = Director.Instance.Get<InputManager>();
             inputManager.JumpPressed += Action;
@@ -42,6 +49,10 @@ namespace YASMPWRT.Controllers
 
         private void ChangeIndex(int newIndex)
         {
+            newIndex = newIndex < 1 
+                ? _gameManager.IsContinueAvailable ? 0 : 1
+                : newIndex;
+            
             if (_model.CurrentIndex == -1)
             {
                 for (var i = 0; i < _model.MenuItems.Length; i++)
@@ -52,14 +63,7 @@ namespace YASMPWRT.Controllers
 
                 if (_model.CurrentIndex == -1)
                 {
-                    newIndex = 0;
-                    _model.CurrentIndex = 0;
-                }
-                else
-                {
-                    newIndex = newIndex == 0
-                        ? _model.CurrentIndex + 1
-                        : _model.CurrentIndex - 1;
+                    _model.CurrentIndex = newIndex;
                 }
             }
             
@@ -84,6 +88,8 @@ namespace YASMPWRT.Controllers
 
         private void Action()
         {
+            if (_model.CurrentIndex == -1) return;
+            
             _model.MenuItems[_model.CurrentIndex].Instance.Controller.Action();
         }
         
@@ -92,16 +98,22 @@ namespace YASMPWRT.Controllers
             switch (type)
             {
                 case MenuItemType.Continue:
+                    _gameManager.LoadLastLevel();
                     break;
                 case MenuItemType.NewGame:
+                    _gameManager.LoadLevel(1);
                     break;
                 case MenuItemType.Music:
+                    _audioManager.ToggleMusic();
                     break;
-                case MenuItemType.SFX:
+                case MenuItemType.SoundEffects:
+                    _audioManager.ToggleSoundEffects();
                     break;
                 case MenuItemType.QuitGame:
+                    _gameManager.QuitGame();
                     break;
                 case MenuItemType.MainMenu:
+                    _gameManager.LoadMainMenu();
                     break;
                 default:
                     break;

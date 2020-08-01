@@ -5,7 +5,7 @@
         Continue,
         NewGame,
         Music,
-        SFX,
+        SoundEffects,
         QuitGame,
         MainMenu
     }

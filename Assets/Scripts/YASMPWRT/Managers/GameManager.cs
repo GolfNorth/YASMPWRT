@@ -1,17 +1,26 @@
 ﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace YASMPWRT.Managers
 {
     public class GameManager : IDisposable
     {
+        private int _currentLevel;
+
+        public bool IsContinueAvailable => _currentLevel > 1;
+
         public GameManager()
         {
             Director.Instance.Set(this);
+
+            _currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
         }
         
         public void Dispose()
         {
+            PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
+            
             Director.Instance.Remove(this);
         }
 
@@ -23,6 +32,23 @@ namespace YASMPWRT.Managers
         public void LoadLevel(int level)
         {
             SceneManager.LoadScene("Level", LoadSceneMode.Single);
+        }
+        
+        public void LoadLastLevel()
+        {
+            LoadLevel(_currentLevel);
+        }
+
+        public void LoadNextLevel()
+        {
+            LoadLevel(_currentLevel + 1);
+        }
+
+        public void QuitGame()
+        {
+            Dispose();
+            
+            Application.Quit();
         }
     }
 }
