@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace YASMPWRT.Managers
 {
@@ -31,6 +32,8 @@ namespace YASMPWRT.Managers
                 if (constructor != null)
                 {
                     result = Activator.CreateInstance(type);
+                    
+                    _objects.Add(type, result);
                 }
             }
 
