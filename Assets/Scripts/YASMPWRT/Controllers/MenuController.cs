@@ -1,4 +1,5 @@
-﻿using YASMPWRT.Enums;
+﻿using System;
+using YASMPWRT.Enums;
 using YASMPWRT.Managers;
 using YASMPWRT.Models;
 using YASMPWRT.Structs;
@@ -34,7 +35,7 @@ namespace YASMPWRT.Controllers
             inputManager.DownPressed += Down;
 
             var eventManager = Director.Instance.Get<EventManager>();
-            eventManager.MenuItemActivated += OnMenuItemActivated;
+            eventManager.NewEvent += OnNewEvent;
         }
 
         private void Up()
@@ -93,26 +94,26 @@ namespace YASMPWRT.Controllers
             _model.MenuItems[_model.CurrentIndex].Instance.Controller.Action();
         }
         
-        private void OnMenuItemActivated(MenuItemType type)
+        private void OnNewEvent(EventType type)
         {
             switch (type)
             {
-                case MenuItemType.Continue:
+                case EventType.MenuItemContinueActivated:
                     _gameManager.LoadLastLevel();
                     break;
-                case MenuItemType.NewGame:
+                case EventType.MenuItemNewGameActivated:
                     _gameManager.LoadLevel(1);
                     break;
-                case MenuItemType.Music:
+                case EventType.MenuItemMusicActivated:
                     _audioManager.ToggleMusic();
                     break;
-                case MenuItemType.SoundEffects:
+                case EventType.MenuItemSoundEffectsActivated:
                     _audioManager.ToggleSoundEffects();
                     break;
-                case MenuItemType.QuitGame:
+                case EventType.MenuItemQuitGameActivated:
                     _gameManager.QuitGame();
                     break;
-                case MenuItemType.MainMenu:
+                case EventType.MenuItemMainMenuActivated:
                     _gameManager.LoadMainMenu();
                     break;
                 default:

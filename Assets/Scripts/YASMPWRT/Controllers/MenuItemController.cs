@@ -25,9 +25,9 @@ namespace YASMPWRT.Controllers
 
             if (type == MenuItemType.Continue)
             {
-                var _gameManager = Director.Instance.Get<GameManager>();
+                var gameManager = Director.Instance.Get<GameManager>();
                 
-                if (!_gameManager.IsContinueAvailable)
+                if (!gameManager.IsContinueAvailable)
                     _view.gameObject.SetActive(false);
             }
 
@@ -84,7 +84,29 @@ namespace YASMPWRT.Controllers
 
         public void Action()
         {
-            _eventManager.MenuItemActivate(_type);
+            switch (_type)
+            {
+                case MenuItemType.Continue:
+                    _eventManager.NewEventInvoke(EventType.MenuItemContinueActivated);
+                    break;
+                case MenuItemType.NewGame:
+                    _eventManager.NewEventInvoke(EventType.MenuItemNewGameActivated);
+                    break;
+                case MenuItemType.Music:
+                    _eventManager.NewEventInvoke(EventType.MenuItemMusicActivated);
+                    break;
+                case MenuItemType.SoundEffects:
+                    _eventManager.NewEventInvoke(EventType.MenuItemSoundEffectsActivated);
+                    break;
+                case MenuItemType.QuitGame:
+                    _eventManager.NewEventInvoke(EventType.MenuItemQuitGameActivated);
+                    break;
+                case MenuItemType.MainMenu:
+                    _eventManager.NewEventInvoke(EventType.MenuItemMainMenuActivated);
+                    break;
+                default:
+                    break;
+            }
         }
 
         public bool IsSelected()

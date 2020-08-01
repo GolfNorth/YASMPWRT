@@ -5,8 +5,9 @@ namespace YASMPWRT.Managers
 {
     public class EventManager : IDisposable
     {
-        public delegate void MenuItemHandler(MenuItemType type);
-        public event MenuItemHandler MenuItemActivated;
+        public delegate void EventManagerHandler(EventType type);
+
+        public event EventManagerHandler NewEvent;
         
         public EventManager()
         {
@@ -18,9 +19,9 @@ namespace YASMPWRT.Managers
             Director.Instance.Remove(this);
         }
 
-        public void MenuItemActivate(MenuItemType type)
+        public void NewEventInvoke(EventType type)
         {
-            MenuItemActivated?.Invoke(type);
+            NewEvent?.Invoke(type);
         }
     }
 }
