@@ -31,7 +31,7 @@ namespace YASMPWRT.Managers
 
         public void LoadLevel(int level)
         {
-            SceneManager.LoadScene("Level", LoadSceneMode.Single);
+            SceneManager.LoadScene("GameLevel", LoadSceneMode.Single);
         }
         
         public void LoadLastLevel()
