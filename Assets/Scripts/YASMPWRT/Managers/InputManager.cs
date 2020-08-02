@@ -19,6 +19,8 @@ namespace YASMPWRT.Managers
         public event InputHandler RewindPressed;
         public event InputHandler RewindUnpressed;
 
+        public float HorizontalAxis => Input.GetAxisRaw("Horizontal");
+
         public InputManager()
         {
             Director.Instance.Set(this);

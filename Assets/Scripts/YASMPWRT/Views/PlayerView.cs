@@ -1,4 +1,5 @@
-﻿using GeekBrainsInternship.Interfaces;
+﻿using System;
+using GeekBrainsInternship.Interfaces;
 using UnityEngine;
 using YASMPWRT.Controllers;
 using YASMPWRT.Managers;
@@ -8,10 +9,14 @@ namespace YASMPWRT.Views
     public sealed class PlayerView : BaseView<PlayerController>, ILateTickable
     {
         private bool _dead;
+        private bool _grounded;
         private Animator _animator;
         private Rigidbody2D _rigidbody2D;
-        private static readonly int VelocityXHash = Animator.StringToHash("VelocityX");
-        private static readonly int VelocityYHash = Animator.StringToHash("VelocityY");
+        private SpriteRenderer _spriteRenderer;
+        private static readonly int IdleHash = Animator.StringToHash("Idle");
+        private static readonly int RunHash = Animator.StringToHash("Run");
+        private static readonly int JumpHash = Animator.StringToHash("Jump");
+        private static readonly int FallHash = Animator.StringToHash("Fall");
         private static readonly int DeadHash = Animator.StringToHash("Dead");
 
         public bool Dead
@@ -47,13 +52,14 @@ namespace YASMPWRT.Views
 
             set => transform.position = value;
         }
-        
+
         private void Awake()
         {
             Controller = new PlayerController(this);
 
             _rigidbody2D = GetComponent<Rigidbody2D>();
             _animator = GetComponent<Animator>();
+            _spriteRenderer = GetComponent<SpriteRenderer>();
         }
 
         private void OnEnable()
@@ -66,12 +72,67 @@ namespace YASMPWRT.Views
             Director.Instance?.Get<UpdateManager>().Remove(this);
         }
 
-        public void LateTick()
+        public void Move(float direction, float speed)
         {
             var velocity = _rigidbody2D.velocity;
+
+            if (_grounded)
+            {
+                velocity.x = direction * speed;
+            }
+            else if (velocity.y != 0) 
+            {
+                
+                velocity.x += direction * speed * Time.deltaTime * 2f;
+                velocity.x = Mathf.Abs(velocity.x) > speed ? Mathf.Sign(velocity.x) * speed : velocity.x;
+            }
             
-            _animator.SetFloat(VelocityXHash, velocity.x);
-            _animator.SetFloat(VelocityYHash, velocity.y);
+            _rigidbody2D.velocity = velocity;
+        }
+
+        public void Jump(float force)
+        {
+            if (_grounded)
+                _rigidbody2D.AddForce(Vector2.up * force);
+        }
+
+
+        private void OnTriggerEnter2D(Collider2D other)
+        {
+            if (other.isTrigger) return;
+            
+            _grounded = true;
+        }
+
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.isTrigger) return;
+            
+            _grounded = false;
+        }
+
+        public void LateTick()
+        {
+            if (Dead)
+            {
+                _animator.SetBool(IdleHash, false);
+                _animator.SetBool(RunHash, false);
+                _animator.SetBool(JumpHash, false);
+                _animator.SetBool(FallHash, false);
+                _animator.SetBool(DeadHash, true);
+                
+                return;
+            }
+            
+            var velocity = _rigidbody2D.velocity;
+            
+            _animator.SetBool(IdleHash, velocity == Vector2.zero);
+            _animator.SetBool(RunHash, velocity.y == 0 && velocity.x != 0);
+            _animator.SetBool(JumpHash, velocity.y < 0);
+            _animator.SetBool(FallHash, velocity.y > 0);
+            _animator.SetBool(DeadHash, false);
+
+            _spriteRenderer.flipX = velocity.x < 0;
         }
     }
 }

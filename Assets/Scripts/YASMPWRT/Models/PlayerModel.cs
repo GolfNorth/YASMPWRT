@@ -9,7 +9,7 @@ namespace YASMPWRT.Models
         private int _maxRewindTime = 8;
         private bool _hasKey;
         private float _speed = 10f;
-        private float _jumpForce = 10f;
+        private float _jumpForce = 700f;
 
         public float Speed
         {

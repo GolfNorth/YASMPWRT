@@ -7,7 +7,7 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class PlayerController : IController<PlayerController>, IFixedTickable
+    public class PlayerController : IController<PlayerController>, ITickable, IFixedTickable
     {
         private bool _isRewind;
         private PlayerView _view;
@@ -28,6 +28,7 @@ namespace YASMPWRT.Controllers
             
             _inputManager.RewindPressed += OnRewindPressed;
             _inputManager.RewindUnpressed += OnRewindUnpressed;
+            _inputManager.JumpPressed += OnJumpPressed;
             
             Director.Instance.Get<UpdateManager>().Add(this);
         }
@@ -35,6 +36,10 @@ namespace YASMPWRT.Controllers
         public void Dispose()
         {
             _inputManager.RewindPressed -= OnRewindPressed;
+            _inputManager.RewindUnpressed -= OnRewindUnpressed;
+            _inputManager.JumpPressed -= OnJumpPressed;
+            
+            Director.Instance.Get<UpdateManager>().Remove(this);
         }
 
         private void OnRewindPressed()
@@ -53,7 +58,14 @@ namespace YASMPWRT.Controllers
             
             _audioManager.StopRewind();
         }
-
+        
+        private void OnJumpPressed()
+        {
+            if (_gameManager.IsPaused) return;
+            
+            _view.Jump(_model.JumpForce);
+        }
+        
         public void Restart()
         {
             _rewindTimer = 0;
@@ -110,6 +122,11 @@ namespace YASMPWRT.Controllers
             };
 
             _model.Rewind.AddLast(newRewind);
+        }
+
+        public void Tick()
+        {
+            _view.Move(_inputManager.HorizontalAxis, _model.Speed);
         }
     }
 }
