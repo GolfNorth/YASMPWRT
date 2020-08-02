@@ -7,8 +7,10 @@ namespace YASMPWRT.Managers
     public class GameManager : IDisposable
     {
         private int _currentLevel;
+        private bool _isPaused;
 
         public bool IsContinueAvailable => _currentLevel > 1;
+        public bool IsPaused => _isPaused;
 
         public GameManager()
         {
@@ -22,6 +24,11 @@ namespace YASMPWRT.Managers
             PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
             
             Director.Instance.Remove(this);
+        }
+
+        public void TogglePause()
+        {
+            _isPaused = !_isPaused;
         }
 
         public void LoadMainMenu()

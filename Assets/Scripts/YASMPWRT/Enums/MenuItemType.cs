@@ -7,6 +7,7 @@
         Music,
         SoundEffects,
         QuitGame,
-        MainMenu
+        ReturnToMenu,
+        ReturnToGame
     }
 }

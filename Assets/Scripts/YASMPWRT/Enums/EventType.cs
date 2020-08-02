@@ -7,6 +7,7 @@
         MenuItemMusicActivated,
         MenuItemSoundEffectsActivated,
         MenuItemQuitGameActivated,
-        MenuItemMainMenuActivated
+        MenuItemReturnToMenuActivated,
+        MenuItemReturnToGameActivated,
     }
 }

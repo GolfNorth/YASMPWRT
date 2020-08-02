@@ -6,6 +6,7 @@ namespace YASMPWRT.Managers
 {
     public class AudioManager : IDisposable
     {
+        private bool _isRewind;
         private bool _isMusicOn;
         private bool _isSoundEffectsOn;
         private AudioSource _audioSource;
@@ -58,7 +59,7 @@ namespace YASMPWRT.Managers
         
         public void PlayMusic()
         {
-            if (!_isMusicOn) return;
+            if (!_isMusicOn || _audioSource.isPlaying) return;
             
             _audioSource.Play();
         }
@@ -95,6 +96,15 @@ namespace YASMPWRT.Managers
             SoundEffectsToggled?.Invoke();
 
             return _isSoundEffectsOn;
+        }
+
+        public bool ToggleRewind()
+        {
+            _isRewind = !_isRewind;
+
+            _audioSource.pitch = _isRewind ? -1 : 1;
+
+            return _isRewind;
         }
     }
 }

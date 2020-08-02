@@ -1,9 +1,10 @@
-﻿using YASMPWRT.Managers;
+﻿using GeekBrainsInternship.Interfaces;
+using YASMPWRT.Managers;
 using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class StartScreenController
+    public class StartScreenController : IController<StartScreenController>
     {
         private StartScreenView _view;
         private InputManager _inputManager;
@@ -16,6 +17,11 @@ namespace YASMPWRT.Controllers
             _gameManager = Director.Instance.Get<GameManager>();
             
             _inputManager.AnyKeyPressed += OnAnyKeyPressed;
+        }
+
+        public void Dispose()
+        {
+            _inputManager.AnyKeyPressed -= OnAnyKeyPressed;
         }
 
         private void OnAnyKeyPressed()

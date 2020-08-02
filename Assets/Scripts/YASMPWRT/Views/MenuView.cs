@@ -4,17 +4,14 @@ using YASMPWRT.Structs;
 
 namespace YASMPWRT.Views
 {
-    public class MenuView : MonoBehaviour
+    public sealed class MenuView : BaseView<MenuController>
     {
         [SerializeField]
         private MenuItem[] menuItems;
-        private MenuController _controller;
-
-        public MenuController Controller => _controller;
 
         private void Awake()
         {
-            _controller = new MenuController(this, menuItems);
+            Controller = new MenuController(this, menuItems);
         }
     }
 }

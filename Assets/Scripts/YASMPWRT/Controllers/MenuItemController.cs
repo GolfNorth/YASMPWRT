@@ -1,4 +1,5 @@
-﻿using UnityEngine.UI;
+﻿using GeekBrainsInternship.Interfaces;
+using UnityEngine.UI;
 using YASMPWRT.Enums;
 using YASMPWRT.Managers;
 using YASMPWRT.Models;
@@ -6,7 +7,7 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class MenuItemController
+    public class MenuItemController : IController<MenuItemController>
     {
         private MenuItemModel _model;
         private MenuItemView _view;
@@ -14,6 +15,9 @@ namespace YASMPWRT.Controllers
         private EventManager _eventManager;
         private AudioManager _audioManager;
         private Text _textComponent;
+
+        public bool IsActive => _model.Active;
+        public bool IsSelected => _model.Selected;
 
         public MenuItemController(MenuItemView view, MenuItemType type)
         {
@@ -29,6 +33,8 @@ namespace YASMPWRT.Controllers
                 
                 if (!gameManager.IsContinueAvailable)
                     _view.gameObject.SetActive(false);
+
+                _model.Active = false;
             }
 
             if (type == MenuItemType.Music || type == MenuItemType.SoundEffects)
@@ -49,6 +55,19 @@ namespace YASMPWRT.Controllers
                         _audioManager.SoundEffectsToggled += OnSoundEffectsToggled;
                         break;
                 }
+            }
+        }
+
+        public void Dispose()
+        {
+            switch (_type)
+            {
+                case MenuItemType.Music:
+                    _audioManager.MusicToggled -= OnMusicToggled;
+                    break;
+                case MenuItemType.SoundEffects:
+                    _audioManager.SoundEffectsToggled -= OnSoundEffectsToggled;
+                    break;
             }
         }
 
@@ -101,17 +120,15 @@ namespace YASMPWRT.Controllers
                 case MenuItemType.QuitGame:
                     _eventManager.NewEventInvoke(EventType.MenuItemQuitGameActivated);
                     break;
-                case MenuItemType.MainMenu:
-                    _eventManager.NewEventInvoke(EventType.MenuItemMainMenuActivated);
+                case MenuItemType.ReturnToMenu:
+                    _eventManager.NewEventInvoke(EventType.MenuItemReturnToMenuActivated);
+                    break;
+                case MenuItemType.ReturnToGame:
+                    _eventManager.NewEventInvoke(EventType.MenuItemReturnToGameActivated);
                     break;
                 default:
                     break;
             }
-        }
-
-        public bool IsSelected()
-        {
-            return _model.Selected;
         }
     }
 }
