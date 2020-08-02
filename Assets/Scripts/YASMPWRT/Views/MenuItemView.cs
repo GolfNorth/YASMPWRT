@@ -15,7 +15,7 @@ namespace YASMPWRT.Views
         private MenuItemType type;
         private Animator _animator;
         private Text _textComponent;
-        private static readonly int Selected = Animator.StringToHash("Selected");
+        private static readonly int SelectedHash = Animator.StringToHash("Selected");
         
         private void Awake()
         {
@@ -45,14 +45,14 @@ namespace YASMPWRT.Views
         {
             _textComponent.fontSize = (int) (_defaultFontSize * selectedFontSizeFactor);
             _animator = GetComponent<Animator>();
-            _animator.SetBool(Selected, true);
+            _animator.SetBool(SelectedHash, true);
         }
 
         public void StopAnimation()
         {
             _textComponent.fontSize = _defaultFontSize;
             _animator = GetComponent<Animator>();
-            _animator.SetBool(Selected, false);
+            _animator.SetBool(SelectedHash, false);
         }
 
         public void ChangeText(string text)

@@ -10,7 +10,7 @@ namespace YASMPWRT.Managers
         private bool _isMusicOn;
         private bool _isSoundEffectsOn;
         private AudioSource _audioSource;
-
+        
         public bool IsMusicOn
         {
             get => _isMusicOn;
@@ -71,7 +71,7 @@ namespace YASMPWRT.Managers
             _audioSource.PlayOneShot(audioClip);
         }
 
-        public bool ToggleMusic()
+        public void ToggleMusic()
         {
             IsMusicOn = !_isMusicOn;
 
@@ -85,26 +85,31 @@ namespace YASMPWRT.Managers
             }
             
             MusicToggled?.Invoke();
-
-            return _isMusicOn;
         }
 
-        public bool ToggleSoundEffects()
+        public void ToggleSoundEffects()
         {
             IsSoundEffectsOn = !_isSoundEffectsOn;
             
             SoundEffectsToggled?.Invoke();
-
-            return _isSoundEffectsOn;
         }
 
-        public bool ToggleRewind()
+        public void StartRewind()
         {
-            _isRewind = !_isRewind;
+            if (_isRewind) return;
 
-            _audioSource.pitch = _isRewind ? -1 : 1;
+            _isRewind = true;
+            
+            _audioSource.pitch = -1;
+        }
 
-            return _isRewind;
+        public void StopRewind()
+        {
+            if (!_isRewind) return;
+
+            _isRewind = false;
+            
+            _audioSource.pitch = 1;
         }
     }
 }
