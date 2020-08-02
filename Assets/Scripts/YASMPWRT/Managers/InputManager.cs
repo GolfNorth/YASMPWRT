@@ -15,6 +15,7 @@ namespace YASMPWRT.Managers
         public event InputHandler DownPressed;
         public event InputHandler LeftPressed;
         public event InputHandler RightPressed;
+        public event InputHandler CancelPressed;
 
         public InputManager()
         {
@@ -44,6 +45,8 @@ namespace YASMPWRT.Managers
                 JumpPressed?.Invoke();
             if (Input.GetKeyDown(KeyCode.Return))
                 ActionPressed?.Invoke();
+            if (Input.GetKeyDown(KeyCode.Escape))
+                CancelPressed?.Invoke();
         }
     }
 }

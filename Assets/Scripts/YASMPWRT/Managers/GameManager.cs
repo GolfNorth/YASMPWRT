@@ -8,15 +8,19 @@ namespace YASMPWRT.Managers
     {
         private int _currentLevel;
         private bool _isPaused;
+        private bool _isLevel;
 
         public bool IsContinueAvailable => _currentLevel > 1;
         public bool IsPaused => _isPaused;
+        public bool IsLevel => _isLevel;
 
         public GameManager()
         {
             Director.Instance.Set(this);
 
             _currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
+
+            _isLevel = SceneManager.GetActiveScene().name == "GameLevel";
         }
         
         public void Dispose()
@@ -28,16 +32,31 @@ namespace YASMPWRT.Managers
 
         public void TogglePause()
         {
-            _isPaused = !_isPaused;
+            if (!_isPaused)
+                Pause();
+            else
+                UnPause();
+        }
+
+        public void Pause()
+        {
+            _isPaused = true;
+        }
+
+        public void UnPause()
+        {
+            _isPaused = false;
         }
 
         public void LoadMainMenu()
         {
+            _isLevel = false;
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
 
         public void LoadLevel(int level)
         {
+            _isLevel = true;
             SceneManager.LoadScene("GameLevel", LoadSceneMode.Single);
         }
         

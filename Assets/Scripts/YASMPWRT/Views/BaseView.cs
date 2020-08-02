@@ -7,13 +7,9 @@ namespace YASMPWRT.Views
     {
         public TController Controller { get; protected set; }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             ((IController<TController>) Controller)?.Dispose();
-            
-            //var controller = Controller as TController;
-            
-            //controller.Dispose();
         }
     }
 }
