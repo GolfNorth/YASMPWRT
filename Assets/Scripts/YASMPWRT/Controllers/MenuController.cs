@@ -9,9 +9,10 @@ namespace YASMPWRT.Controllers
 {
     public class MenuController : IController<MenuController>
     {
-        private MenuView _view;
-        private MenuModel _model;
+        private readonly MenuView _view;
+        private readonly MenuModel _model;
         private readonly GameManager _gameManager;
+        private readonly LevelManager _levelManager;
         private readonly InputManager _inputManager;
         private readonly AudioManager _audioManager;
         private readonly EventManager _eventManager;
@@ -29,6 +30,7 @@ namespace YASMPWRT.Controllers
             };
 
             _gameManager = Director.Instance.Get<GameManager>();
+            _levelManager = Director.Instance.Get<LevelManager>();
             _audioManager = Director.Instance.Get<AudioManager>();
 
             _audioManager.PlayMusic();
@@ -148,6 +150,11 @@ namespace YASMPWRT.Controllers
                     _gameManager.GoMainMenu();
                     break;
                 case EventType.MenuItemReturnToGameActivated:
+                    _gameManager.Unpause();
+                    _view.gameObject.SetActive(false);
+                    break;
+                case EventType.MenuItemResetLevelActivated:
+                    _levelManager.RestartLevel();
                     _gameManager.Unpause();
                     _view.gameObject.SetActive(false);
                     break;

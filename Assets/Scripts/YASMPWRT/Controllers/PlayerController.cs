@@ -8,15 +8,15 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class PlayerController : IController<PlayerController>, ITickable, IFixedTickable
+    public sealed class PlayerController : IController<PlayerController>, ITickable, IFixedTickable
     {
         private bool _isRewind;
-        private PlayerView _view;
-        private PlayerModel _model;
+        private readonly PlayerView _view;
+        private readonly PlayerModel _model;
         private float _rewindTimer;
-        private GameManager _gameManager;
-        private InputManager _inputManager;
-        private AudioManager _audioManager;
+        private readonly GameManager _gameManager;
+        private readonly InputManager _inputManager;
+        private readonly AudioManager _audioManager;
 
         public bool IsDead => _model.Dead;
 
@@ -97,7 +97,12 @@ namespace YASMPWRT.Controllers
         public void Reset()
         {
             _rewindTimer = 0;
+            
             _model.Dead = false;
+            _model.Rewind.Clear();
+            
+            _view.Run(0);
+            _view.Jump(0, true);
         }
 
         public void Spawn(Vector3 position)
