@@ -12,7 +12,6 @@ namespace YASMPWRT.Managers
         private readonly GameManager _gameManager;
         private readonly AudioManager _audioManager;
         private readonly ScoreManager _scoreManager;
-        private readonly MessagesManager _messagesManager;
         private int _currentLevelIndex;
         private GameObject _currentLevel;
         private BridgeController[] _bridges;
@@ -32,7 +31,6 @@ namespace YASMPWRT.Managers
             _gameManager = Director.Instance.Get<GameManager>();
             _audioManager = Director.Instance.Get<AudioManager>();
             _scoreManager = Director.Instance.Get<ScoreManager>();
-            _messagesManager = Director.Instance.Get<MessagesManager>();
         }
         
         public void Dispose()
@@ -157,13 +155,8 @@ namespace YASMPWRT.Managers
 
         public void EnterDoor()
         {
-            if (!_playerHasKey)
-            {
-                _messagesManager.Show("First I need to find the key");
-                
-                return;
-            }
-            
+            if (!_playerHasKey) return;
+
             _audioManager.PlaySoundEffect(SoundType.Success);
             
             EndLevel();
@@ -171,6 +164,8 @@ namespace YASMPWRT.Managers
 
         public void KillPlayer()
         {
+            if (_player.IsDead) return;
+            
             _player.Die();
 
             _audioManager.PlaySoundEffect(SoundType.Death);
