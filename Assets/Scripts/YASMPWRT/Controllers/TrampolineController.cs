@@ -58,11 +58,11 @@ namespace YASMPWRT.Controllers
         
         private IEnumerator Reloading()
         {
-            var normalizedTime = 0f;
+            var duration = 0f;
             
-            while(normalizedTime <= 1f)
+            while(duration < _model.ReloadSpeed)
             {
-                normalizedTime += Time.deltaTime / _model.ReloadSpeed;
+                duration += Time.deltaTime;
                 
                 yield return null;
             }

@@ -14,6 +14,7 @@ namespace YASMPWRT.Managers
         private readonly ScoreManager _scoreManager;
         private int _currentLevelIndex;
         private GameObject _currentLevel;
+        private BridgeController[] _bridges;
         private CoinController[] _coins;
         private FlagController _flag;
         private DoorController _door;
@@ -53,6 +54,15 @@ namespace YASMPWRT.Managers
             _player = GameObject.FindObjectOfType<PlayerView>().Controller;
             _player.Spawn(_flag.Position);
             _player.Reset();
+            
+            var bridgeViews = GameObject.FindObjectsOfType<BridgeView>();
+            
+            _bridges = new BridgeController[bridgeViews.Length];
+
+            for (var i = 0; i < _bridges.Length; i++)
+            {
+                _bridges[i] = bridgeViews[i].Controller;
+            }
 
             var coinViews = GameObject.FindObjectsOfType<CoinView>();
             
@@ -74,6 +84,11 @@ namespace YASMPWRT.Managers
             _door.Reset();
             _key.Reset();
             
+            for (var i = 0; i < _bridges.Length; i++)
+            {
+                _bridges[i].Reset();
+            }
+            
             for (var i = 0; i < _coins.Length; i++)
             {
                 _coins[i].Reset();
@@ -82,6 +97,7 @@ namespace YASMPWRT.Managers
         
         public void EndLevel()
         {
+            _bridges = null;
             _coins = null;
             _flag = null;
             _door = null;
@@ -121,8 +137,6 @@ namespace YASMPWRT.Managers
         public void EnterDoor()
         {
             if (!_playerHasKey) return;
-            
-            Debug.Log(_playerHasKey);
             
             _audioManager.PlaySoundEffect(SoundType.Success);
             

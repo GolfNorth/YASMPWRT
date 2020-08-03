@@ -101,6 +101,13 @@ namespace YASMPWRT.Views
             _grounded = true;
         }
 
+        private void OnTriggerStay2D(Collider2D other)
+        {
+            if (other.isTrigger) return;
+            
+            _grounded = true;
+        }
+
         private void OnTriggerExit2D(Collider2D other)
         {
             if (other.isTrigger) return;
@@ -129,7 +136,7 @@ namespace YASMPWRT.Views
             _animator.SetBool(FallHash, velocity.y > 0);
             _animator.SetBool(DeadHash, false);
 
-            _spriteRenderer.flipX = velocity.x < 0;
+            _spriteRenderer.flipX = velocity.x == 0 ? _spriteRenderer.flipX : velocity.x < 0;
         }
     }
 }
