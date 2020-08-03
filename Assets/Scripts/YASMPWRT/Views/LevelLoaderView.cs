@@ -3,7 +3,7 @@ using YASMPWRT.Managers;
 
 namespace YASMPWRT.Views
 {
-    public class LevelLoaderView : MonoBehaviour
+    public sealed class LevelLoaderView : MonoBehaviour
     {
         public int level = 1;
         

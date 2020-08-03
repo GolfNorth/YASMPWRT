@@ -7,7 +7,7 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class MenuItemController : IController<MenuItemController>
+    public sealed class MenuItemController : IController<MenuItemController>
     {
         private readonly MenuItemModel _model;
         private readonly MenuItemView _view;

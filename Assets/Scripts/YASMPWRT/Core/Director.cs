@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace YASMPWRT.Managers
 {
-    public class Director : Singleton<Director>
+    public sealed class Director : Singleton<Director>
     {
         private Dictionary<Type, object> _objects;
         private UpdateManager _updateManager;

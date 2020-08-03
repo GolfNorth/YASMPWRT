@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 namespace YASMPWRT.Managers
 {
-    public class GameManager : IDisposable
+    public sealed class GameManager : IDisposable
     {
         private int _currentLevel;
         private bool _isPaused;

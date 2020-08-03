@@ -3,7 +3,7 @@ using YASMPWRT.Enums;
 
 namespace YASMPWRT.Managers
 {
-    public class EventManager : IDisposable
+    public sealed class EventManager : IDisposable
     {
         public delegate void EventManagerHandler(EventType type);
 

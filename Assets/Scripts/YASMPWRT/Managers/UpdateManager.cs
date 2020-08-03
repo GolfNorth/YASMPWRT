@@ -4,7 +4,7 @@ using YASMPWRT.Interfaces;
 
 namespace YASMPWRT.Managers
 {
-    public class UpdateManager : IDisposable
+    public sealed class UpdateManager : IDisposable
     {
         private readonly List<ITickable> _ticks = new List<ITickable>();
         private readonly List<ILateTickable> _lateTicks = new List<ILateTickable>();

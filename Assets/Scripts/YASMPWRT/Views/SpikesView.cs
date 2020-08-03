@@ -3,7 +3,7 @@ using YASMPWRT.Controllers;
 
 namespace YASMPWRT.Views
 {
-    public class SpikesView : BaseView<SpikesController>
+    public sealed class SpikesView : BaseView<SpikesController>
     {
         private void Awake()
         {

@@ -4,7 +4,7 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class SpikesController : IController<SpikesController>
+    public sealed class SpikesController : IController<SpikesController>
     {
         private readonly LevelManager _levelManager;
 

@@ -4,7 +4,7 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class DoorController : IController<DoorController>
+    public sealed class DoorController : IController<DoorController>
     {
         private readonly DoorView _view;
         private readonly LevelManager _levelManager;

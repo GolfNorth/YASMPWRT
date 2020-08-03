@@ -3,7 +3,7 @@ using YASMPWRT.Controllers;
 
 namespace YASMPWRT.Views
 {
-    public class TrampolineView : BaseView<TrampolineController>
+    public sealed class TrampolineView : BaseView<TrampolineController>
     {
         [SerializeField]
         private float power;        

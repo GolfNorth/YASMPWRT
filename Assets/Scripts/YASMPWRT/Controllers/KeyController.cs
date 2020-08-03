@@ -4,7 +4,7 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class KeyController : IController<KeyController>
+    public sealed class KeyController : IController<KeyController>
     {
         private readonly KeyView _view;
         private readonly LevelManager _levelManager;

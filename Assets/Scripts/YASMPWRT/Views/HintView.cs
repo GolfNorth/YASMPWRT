@@ -3,7 +3,7 @@ using YASMPWRT.Controllers;
 
 namespace YASMPWRT.Views
 {
-    public class HintView : BaseView<HintController>
+    public sealed class HintView : BaseView<HintController>
     {
         [SerializeField, Multiline]
         private string[] messages;

@@ -3,7 +3,7 @@ using YASMPWRT.Controllers;
 
 namespace YASMPWRT.Views
 {
-    public class DoorView : BaseView<DoorController>
+    public sealed class DoorView : BaseView<DoorController>
     {
         [SerializeField] 
         private Sprite closedDoor;

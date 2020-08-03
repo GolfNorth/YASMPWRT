@@ -3,7 +3,7 @@ using YASMPWRT.Controllers;
 
 namespace YASMPWRT.Views
 {
-    public class CoinView : BaseView<CoinController>
+    public sealed class CoinView : BaseView<CoinController>
     {
         private void Awake()
         {

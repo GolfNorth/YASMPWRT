@@ -5,7 +5,7 @@ using YASMPWRT.Enums;
 
 namespace YASMPWRT.Data
 {
-    public class AudioClipsData
+    public sealed class AudioClipsData
     {
         private static readonly Lazy<AudioClipsData> _instance = new Lazy<AudioClipsData>(() => new AudioClipsData());
 

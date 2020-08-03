@@ -2,7 +2,7 @@
 
 namespace YASMPWRT.Models
 {
-    public class MenuModel
+    public sealed class MenuModel
     {
         private int _currentIndex;
         private MenuItem[] _menuItems;

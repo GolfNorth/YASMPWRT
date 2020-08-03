@@ -4,7 +4,7 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class StartScreenController : IController<StartScreenController>
+    public sealed class StartScreenController : IController<StartScreenController>
     {
         private readonly InputManager _inputManager;
         private readonly GameManager _gameManager;

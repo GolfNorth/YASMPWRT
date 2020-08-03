@@ -3,7 +3,7 @@ using YASMPWRT.Controllers;
 
 namespace YASMPWRT.Views
 {
-    public class KeyView : BaseView<KeyController>
+    public sealed class KeyView : BaseView<KeyController>
     {
         private void Awake()
         {

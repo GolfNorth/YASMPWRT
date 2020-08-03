@@ -4,7 +4,7 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class FlagController : IController<FlagController>
+    public sealed class FlagController : IController<FlagController>
     {
         private readonly FlagView _view;
 

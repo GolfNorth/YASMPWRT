@@ -5,7 +5,7 @@ using YASMPWRT.Enums;
 
 namespace YASMPWRT.Managers
 {
-    public class AudioManager : IDisposable
+    public sealed class AudioManager : IDisposable
     {
         private bool _isRewind;
         private bool _isMusicOn;

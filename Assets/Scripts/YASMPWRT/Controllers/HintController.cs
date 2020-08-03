@@ -4,7 +4,7 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class HintController : IController<HintController>
+    public sealed class HintController : IController<HintController>
     {
         private string[] _messages;
         private readonly HintView _view;

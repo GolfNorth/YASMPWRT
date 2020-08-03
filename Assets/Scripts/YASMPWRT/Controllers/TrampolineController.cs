@@ -7,7 +7,7 @@ using YASMPWRT.Views;
 
 namespace YASMPWRT.Controllers
 {
-    public class TrampolineController : IController<TrampolineController>
+    public sealed class TrampolineController : IController<TrampolineController>
     {
         private readonly TrampolineModel _model;
         private readonly LevelManager _levelManager;

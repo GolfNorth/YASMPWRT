@@ -3,7 +3,7 @@ using YASMPWRT.Controllers;
 
 namespace YASMPWRT.Views
 {
-    public class FlagView : BaseView<FlagController>
+    public sealed class FlagView : BaseView<FlagController>
     {
         public Vector3 Position => transform.position;
         

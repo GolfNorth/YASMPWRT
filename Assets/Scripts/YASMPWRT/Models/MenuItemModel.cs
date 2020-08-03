@@ -1,6 +1,6 @@
 ﻿namespace YASMPWRT.Models
 {
-    public class MenuItemModel
+    public sealed class MenuItemModel
     {
         private bool _active = true;
         private bool _selected;

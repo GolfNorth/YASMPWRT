@@ -4,7 +4,7 @@ using YASMPWRT.Interfaces;
 
 namespace YASMPWRT.Managers
 {
-    public class InputManager : IDisposable, ITickable
+    public sealed class InputManager : IDisposable, ITickable
     {
         public delegate void InputHandler();
         

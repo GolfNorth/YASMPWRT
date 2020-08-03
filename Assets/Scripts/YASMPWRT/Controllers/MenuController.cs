@@ -7,7 +7,7 @@ using EventType = YASMPWRT.Enums.EventType;
 
 namespace YASMPWRT.Controllers
 {
-    public class MenuController : IController<MenuController>
+    public sealed class MenuController : IController<MenuController>
     {
         private readonly MenuView _view;
         private readonly MenuModel _model;
