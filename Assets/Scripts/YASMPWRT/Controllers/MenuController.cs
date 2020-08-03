@@ -158,6 +158,9 @@ namespace YASMPWRT.Controllers
                     _gameManager.Unpause();
                     _view.gameObject.SetActive(false);
                     break;
+                case EventType.MenuItemCreditsActivated:
+                    _view.GetComponent<CreditsView>()?.Controller?.Show();
+                    break;
                 default:
                     break;
             }

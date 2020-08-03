@@ -9,6 +9,7 @@
         QuitGame,
         ReturnToMenu,
         ReturnToGame,
-        RestartLevel
+        RestartLevel,
+        Credits
     }
 }

@@ -11,6 +11,7 @@ namespace YASMPWRT.Managers
         public event InputHandler AnyKeyPressed;
         public event InputHandler JumpPressed;
         public event InputHandler ActionPressed;
+        public event InputHandler MousePressed;
         public event InputHandler UpPressed;
         public event InputHandler DownPressed;
         public event InputHandler CancelPressed;
@@ -45,6 +46,8 @@ namespace YASMPWRT.Managers
                 ActionPressed?.Invoke();
             if (Input.GetKeyDown(KeyCode.Escape))
                 CancelPressed?.Invoke();
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+                MousePressed?.Invoke();
             if (Input.GetKeyDown(KeyCode.R))
                 RewindPressed?.Invoke();
             if (Input.GetKeyUp(KeyCode.R))

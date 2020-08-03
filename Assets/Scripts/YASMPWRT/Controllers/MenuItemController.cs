@@ -129,6 +129,9 @@ namespace YASMPWRT.Controllers
                 case MenuItemType.RestartLevel:
                     _eventManager.NewEventInvoke(EventType.MenuItemResetLevelActivated);
                     break;
+                case MenuItemType.Credits:
+                    _eventManager.NewEventInvoke(EventType.MenuItemCreditsActivated);
+                    break;
                 default:
                     break;
             }

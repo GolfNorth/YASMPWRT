@@ -12,8 +12,7 @@ namespace YASMPWRT.Managers
         private readonly GameManager _gameManager;
         private readonly InputManager _inputManager;
         private readonly MessageBoxController _messageBox;
-        
-        
+
         public MessagesManager()
         {
             Director.Instance.Set(this);
@@ -27,12 +26,14 @@ namespace YASMPWRT.Managers
             
             _inputManager.ActionPressed += OnActionPressed;
             _inputManager.JumpPressed += OnActionPressed;
+            _inputManager.MousePressed += OnActionPressed;
         }
 
         public void Dispose()
         {
             _inputManager.ActionPressed -= OnActionPressed;
             _inputManager.JumpPressed -= OnActionPressed;
+            _inputManager.MousePressed -= OnActionPressed;
             
             Director.Instance.Remove(this);
         }
