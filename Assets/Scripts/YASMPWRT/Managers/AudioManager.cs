@@ -10,7 +10,7 @@ namespace YASMPWRT.Managers
         private bool _isRewind;
         private bool _isMusicOn;
         private bool _isSoundEffectsOn;
-        private AudioSource _audioSource;
+        private readonly AudioSource _audioSource;
         
         public bool IsMusicOn
         {

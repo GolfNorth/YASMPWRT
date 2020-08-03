@@ -11,7 +11,7 @@ namespace YASMPWRT.Managers
         #region Fields
 
         // Check to see if we're about to be destroyed.
-        private static bool _shuttingDown = false;
+        private static bool _shuttingDown;
         private static object _lock = new object();
         private static T _instance;
 

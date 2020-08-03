@@ -9,6 +9,6 @@
         QuitGame,
         ReturnToMenu,
         ReturnToGame,
-        ResetLevel
+        RestartLevel
     }
 }

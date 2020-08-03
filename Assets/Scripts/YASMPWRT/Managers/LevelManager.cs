@@ -1,5 +1,6 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using YASMPWRT.Controllers;
 using YASMPWRT.Data;
 using YASMPWRT.Enums;
@@ -74,7 +75,7 @@ namespace YASMPWRT.Managers
             }
         }
 
-        public void ResetLevel()
+        public void RestartLevel()
         {
             _playerHasKey = false;
             _score = 0;
@@ -94,8 +95,8 @@ namespace YASMPWRT.Managers
                 _coins[i].Reset();
             }
         }
-        
-        public void EndLevel()
+
+        private void EndLevel()
         {
             _bridges = null;
             _coins = null;
@@ -113,7 +114,7 @@ namespace YASMPWRT.Managers
             }
             else
             {
-                _gameManager.LastLevel = _currentLevelIndex;
+                _gameManager.CurrentLevel = _currentLevelIndex;
                 _gameManager.GoMainMenu();
             }
         }

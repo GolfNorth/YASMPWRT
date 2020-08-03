@@ -9,12 +9,12 @@ namespace YASMPWRT.Controllers
 {
     public class MenuItemController : IController<MenuItemController>
     {
-        private MenuItemModel _model;
-        private MenuItemView _view;
-        private MenuItemType _type;
-        private EventManager _eventManager;
-        private AudioManager _audioManager;
-        private Text _textComponent;
+        private readonly MenuItemModel _model;
+        private readonly MenuItemView _view;
+        private readonly MenuItemType _type;
+        private readonly EventManager _eventManager;
+        private readonly AudioManager _audioManager;
+        private readonly Text _textComponent;
 
         public bool IsActive => _model.Active;
         public bool IsSelected => _model.Selected;
@@ -126,7 +126,7 @@ namespace YASMPWRT.Controllers
                 case MenuItemType.ReturnToGame:
                     _eventManager.NewEventInvoke(EventType.MenuItemReturnToGameActivated);
                     break;
-                case MenuItemType.ResetLevel:
+                case MenuItemType.RestartLevel:
                     _eventManager.NewEventInvoke(EventType.MenuItemResetLevelActivated);
                     break;
                 default:

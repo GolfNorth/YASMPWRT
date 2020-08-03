@@ -11,7 +11,7 @@ namespace YASMPWRT.Managers
         private bool _isLevel;
         private readonly LevelManager _levelManager;
 
-        public int LastLevel
+        public int CurrentLevel
         {
             get => _currentLevel;
             set => _currentLevel = value;

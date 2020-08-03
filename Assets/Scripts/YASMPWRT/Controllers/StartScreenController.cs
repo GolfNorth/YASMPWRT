@@ -6,13 +6,11 @@ namespace YASMPWRT.Controllers
 {
     public class StartScreenController : IController<StartScreenController>
     {
-        private StartScreenView _view;
-        private InputManager _inputManager;
-        private GameManager _gameManager;
+        private readonly InputManager _inputManager;
+        private readonly GameManager _gameManager;
 
         public StartScreenController(StartScreenView view)
         {
-            _view = view;
             _inputManager = Director.Instance.Get<InputManager>();
             _gameManager = Director.Instance.Get<GameManager>();
             

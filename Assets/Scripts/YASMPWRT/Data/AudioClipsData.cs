@@ -16,13 +16,15 @@ namespace YASMPWRT.Data
         public AudioClipsData()
         {
             MusicLoop = Resources.Load<AudioClip>("Sounds/music_loop");
-            
-            Sounds = new Dictionary<SoundType, AudioClip>();
-            Sounds.Add(SoundType.Coin, Resources.Load<AudioClip>("Sounds/coin"));
-            Sounds.Add(SoundType.Key, Resources.Load<AudioClip>("Sounds/key"));
-            Sounds.Add(SoundType.Jump, Resources.Load<AudioClip>("Sounds/jump"));
-            Sounds.Add(SoundType.Death, Resources.Load<AudioClip>("Sounds/death"));
-            Sounds.Add(SoundType.Success, Resources.Load<AudioClip>("Sounds/success"));
+
+            Sounds = new Dictionary<SoundType, AudioClip>
+            {
+                {SoundType.Coin, Resources.Load<AudioClip>("Sounds/coin")},
+                {SoundType.Key, Resources.Load<AudioClip>("Sounds/key")},
+                {SoundType.Jump, Resources.Load<AudioClip>("Sounds/jump")},
+                {SoundType.Death, Resources.Load<AudioClip>("Sounds/death")},
+                {SoundType.Success, Resources.Load<AudioClip>("Sounds/success")}
+            };
         }
     }
 }

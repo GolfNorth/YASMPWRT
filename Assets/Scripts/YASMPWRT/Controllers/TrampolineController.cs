@@ -9,7 +9,6 @@ namespace YASMPWRT.Controllers
 {
     public class TrampolineController : IController<TrampolineController>
     {
-        private readonly TrampolineView _view;
         private readonly TrampolineModel _model;
         private readonly LevelManager _levelManager;
 
@@ -32,7 +31,6 @@ namespace YASMPWRT.Controllers
         
         public TrampolineController(TrampolineView view)
         {
-            _view = view;
             _model = new TrampolineModel();
             _levelManager = Director.Instance.Get<LevelManager>();
         }
