@@ -18,6 +18,8 @@ namespace YASMPWRT.Controllers
         private InputManager _inputManager;
         private AudioManager _audioManager;
 
+        public bool IsDead => _model.Dead;
+
         public PlayerController(PlayerView view)
         {
             _view = view;
@@ -31,7 +33,6 @@ namespace YASMPWRT.Controllers
             _inputManager.RewindUnpressed += OnRewindUnpressed;
             _inputManager.JumpPressed += OnJumpPressed;
             
-            Director.Instance.Set(this);
             Director.Instance.Get<UpdateManager>().Add(this);
         }
 
@@ -41,15 +42,14 @@ namespace YASMPWRT.Controllers
             _inputManager.RewindUnpressed -= OnRewindUnpressed;
             _inputManager.JumpPressed -= OnJumpPressed;
             
-            Director.Instance?.Remove(this);
             Director.Instance?.Get<UpdateManager>().Remove(this);
         }
 
         public void Tick()
         {
-            if (_view.Dead || _gameManager.IsPaused) return;
+            if (_model.Dead || _gameManager.IsPaused) return;
             
-            _view.Move(_inputManager.HorizontalAxis, _model.Speed);
+            _view.Run(_inputManager.HorizontalAxis);
         }
 
         public void FixedTick()
@@ -81,19 +81,14 @@ namespace YASMPWRT.Controllers
         
         private void OnJumpPressed()
         {
-            if (_view.Dead || _gameManager.IsPaused) return;
-
-            Jump(_model.JumpForce);
+            if (_model.Dead || _gameManager.IsPaused) return;
+            
+            Jump(Vector2.up.y);
         }
 
-        public void ThrowUp()
+        public void Jump(float direction, bool certainly = false)
         {
-            Jump(_model.JumpForce * 1.5f, true);
-        }
-
-        private void Jump(float force, bool certainly = false)
-        {
-            if (_view.Jump(force, certainly))
+            if (_view.Jump(direction, certainly))
             {
                 _audioManager.PlaySoundEffect(SoundType.Jump);
             }
@@ -102,13 +97,13 @@ namespace YASMPWRT.Controllers
         public void Reset()
         {
             _rewindTimer = 0;
-            _view.Dead = false;
+            _model.Dead = false;
         }
         
         public void Die()
         {
-            _view.Dead = true;
-            _view.Move(0, 0);
+            _model.Dead = true;
+            _view.Run(0);
             _audioManager.PlaySoundEffect(SoundType.Death);
         }
 
@@ -124,7 +119,7 @@ namespace YASMPWRT.Controllers
             
             var frame = _model.Rewind.Last.Value;
 
-            _view.Dead = frame.Dead;
+            _model.Dead = false;
             _view.Velocity = frame.Velocity;
             _view.Position = frame.Position;
             _rewindTimer -= frame.DeltaTime;
@@ -134,7 +129,7 @@ namespace YASMPWRT.Controllers
         
         private void RecordRewind()
         {
-            if (_view.Dead) return;
+            if (_model.Dead) return;
             
             _rewindTimer += Time.fixedDeltaTime;
 
@@ -147,7 +142,6 @@ namespace YASMPWRT.Controllers
 
             var newRewind = new RewindFrame()
             {
-                Dead = _view.Dead,
                 DeltaTime = Time.fixedDeltaTime,
                 Position = _view.Position,
                 Velocity = _view.Velocity

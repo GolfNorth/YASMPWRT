@@ -1,13 +1,14 @@
-﻿using System.Collections;
-using UnityEngine;
+﻿using UnityEngine;
 using YASMPWRT.Controllers;
-using YASMPWRT.Managers;
 
 namespace YASMPWRT.Views
 {
-    public class TrampolineView : MonoBehaviour
+    public class TrampolineView : BaseView<TrampolineController>
     {
-        private bool _unclenched;
+        [SerializeField]
+        private float power;        
+        [SerializeField]
+        private float reloadSpeed;
         private Animator _animator;
         private BoxCollider2D _solidCollider;
         private BoxCollider2D _triggerCollider;
@@ -15,17 +16,24 @@ namespace YASMPWRT.Views
 
         private void Awake()
         {
+            Controller = new TrampolineController(this)
+            {
+                Flipped = transform.rotation.x != 0,
+                ReloadSpeed = reloadSpeed,
+                Power = power
+            };
+            
             _animator = GetComponent<Animator>();
         }
 
         private void OnTriggerEnter2D(Collider2D other)
         {
-            ThrowUp(other);
+            Throw(other);
         }
 
         private void OnTriggerStay2D(Collider2D other)
         {
-            ThrowUp(other);
+            Throw(other);
         }
 
         private void OnTriggerExit2D(Collider2D other)
@@ -34,34 +42,14 @@ namespace YASMPWRT.Views
             
             _animator.SetBool(UnclenchedHash, false);
         }
-        
-        private IEnumerator Countdown()
-        {
-            var duration = 2f;
-            var normalizedTime = 0f;
-            
-            while(normalizedTime <= 1f)
-            {
-                normalizedTime += Time.deltaTime / duration;
-                
-                yield return null;
-            }
-            
-            _unclenched = false;
-        }
 
-        private void ThrowUp(Collider2D other)
+        private void Throw(Collider2D other)
         {
-            if (_unclenched || other.gameObject.name != "Player") return;
+            if (Controller.IsReloading || other.gameObject.name != "Player") return;
             
-            var playerController = Director.Instance.Get<PlayerController>();
-            playerController?.ThrowUp();
+            Controller.Throw();
 
             _animator.SetBool(UnclenchedHash, true);
-            
-            _unclenched = true;
-            
-            StartCoroutine(Countdown());
         }
     }
 }

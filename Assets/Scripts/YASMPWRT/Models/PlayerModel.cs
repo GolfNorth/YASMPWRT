@@ -3,24 +3,11 @@ using YASMPWRT.Structs;
 
 namespace YASMPWRT.Models
 {
-    public class PlayerModel
+    public sealed class PlayerModel
     {
         private LinkedList<RewindFrame> _rewind = new LinkedList<RewindFrame>();
         private int _maxRewindTime = 8;
-        private float _speed = 10f;
-        private float _jumpForce = 700f;
-
-        public float Speed
-        {
-            get => _speed;
-            set => _speed = value;
-        }
-
-        public float JumpForce
-        {
-            get => _jumpForce;
-            set => _jumpForce = value;
-        }
+        private bool _dead = false;
 
         public LinkedList<RewindFrame> Rewind
         {
@@ -32,6 +19,12 @@ namespace YASMPWRT.Models
         {
             get => _maxRewindTime;
             set => _maxRewindTime = value;
+        }
+
+        public bool Dead
+        {
+            get => _dead;
+            set => _dead = value;
         }
     }
 }

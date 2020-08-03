@@ -7,7 +7,8 @@ namespace YASMPWRT.Views
 {
     public sealed class PlayerView : BaseView<PlayerController>, ILateTickable
     {
-        private bool _dead;
+        [SerializeField]
+        private Vector2 speed;
         private bool _grounded;
         private Animator _animator;
         private Rigidbody2D _rigidbody2D;
@@ -18,16 +19,6 @@ namespace YASMPWRT.Views
         private static readonly int FallHash = Animator.StringToHash("Fall");
         private static readonly int DeadHash = Animator.StringToHash("Dead");
 
-        public bool Dead
-        {
-            get => _dead;
-            set
-            {
-                _animator.SetBool(DeadHash, value);
-                _dead = value;
-            }
-        }
-        
         public Vector2 Velocity
         {
             get
@@ -51,7 +42,7 @@ namespace YASMPWRT.Views
 
             set => transform.position = value;
         }
-
+        
         private void Awake()
         {
             Controller = new PlayerController(this);
@@ -71,34 +62,33 @@ namespace YASMPWRT.Views
             Director.Instance?.Get<UpdateManager>().Remove(this);
         }
 
-        public void Move(float direction, float speed)
+        public void Run(float direction)
         {
             var velocity = _rigidbody2D.velocity;
 
-            if (_grounded)
-            {
-                velocity.x = direction * speed;
-            }
-            else if (velocity.y != 0) 
-            {
-                
-                velocity.x += direction * speed * Time.deltaTime * 2f;
-                velocity.x = Mathf.Abs(velocity.x) > speed ? Mathf.Sign(velocity.x) * speed : velocity.x;
-            }
-            
+            velocity.x = _grounded
+                ? direction * speed.x
+                : velocity.x + direction * speed.x * Time.deltaTime * 2f;
+            velocity.x = Mathf.Abs(velocity.x) > speed.x 
+                ? Mathf.Sign(velocity.x) * speed.x
+                : velocity.x;
+
             _rigidbody2D.velocity = velocity;
         }
 
-        public bool Jump(float force, bool certainly)
+        public bool Jump(float direction, bool certainly)
         {
-            if (_grounded || certainly)
-            {
-                _rigidbody2D.AddForce(Vector2.up * force);
+            Debug.Log(direction);
+            
+            if (!_grounded && !certainly) return false;
+            
+            var velocity = _rigidbody2D.velocity;
+            
+            velocity.y = direction * speed.y;
 
-                return true;
-            }
-
-            return false;
+            _rigidbody2D.velocity = velocity;
+                
+            return true;
         }
 
         private void OnTriggerEnter2D(Collider2D other)
@@ -117,7 +107,7 @@ namespace YASMPWRT.Views
 
         public void LateTick()
         {
-            if (Dead)
+            if (Controller.IsDead)
             {
                 _animator.SetBool(IdleHash, false);
                 _animator.SetBool(RunHash, false);

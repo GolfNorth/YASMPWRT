@@ -126,5 +126,10 @@ namespace YASMPWRT.Managers
             
             _audioManager.PlaySoundEffect(SoundType.Death);
         }
+
+        public void ThrowPlayer(float direction)
+        {
+            _player.Jump(direction, true);
+        }
     }
 }

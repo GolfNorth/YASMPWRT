@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace YASMPWRT.Managers
@@ -66,6 +67,11 @@ namespace YASMPWRT.Managers
         private void FixedUpdate()
         {
             _updateManager.TickFixed();
+        }
+        
+        public void RunCoroutine(IEnumerator method)
+        {
+            StartCoroutine(method);
         }
     }
 }
