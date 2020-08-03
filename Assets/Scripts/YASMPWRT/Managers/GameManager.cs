@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -46,11 +47,6 @@ namespace YASMPWRT.Managers
             Director.Instance.Remove(this);
         }
 
-        public void TogglePause()
-        {
-            IsPaused = !IsPaused;
-        }
-
         public void Pause()
         {
             IsPaused = true;
@@ -58,7 +54,7 @@ namespace YASMPWRT.Managers
 
         public void Unpause()
         {
-            IsPaused = false;
+            Director.Instance.RunCoroutine(UnpauseDelay());
         }
 
         public void StartGame()
@@ -102,6 +98,13 @@ namespace YASMPWRT.Managers
             Dispose();
             
             Application.Quit();
+        }
+        
+        private IEnumerator UnpauseDelay()
+        {
+            yield return null;
+            
+            IsPaused = false;
         }
     }
 }

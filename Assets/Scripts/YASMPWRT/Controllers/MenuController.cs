@@ -1,4 +1,5 @@
-﻿using YASMPWRT.Interfaces;
+﻿using UnityEngine;
+using YASMPWRT.Interfaces;
 using YASMPWRT.Managers;
 using YASMPWRT.Models;
 using YASMPWRT.Structs;
@@ -17,7 +18,7 @@ namespace YASMPWRT.Controllers
         private readonly AudioManager _audioManager;
         private readonly EventManager _eventManager;
 
-        private bool IsActive => !_gameManager.IsLevel || _gameManager.IsPaused;
+        private bool IsActive => _view.gameObject.activeSelf;
 
         public MenuController(MenuView view, MenuItem[] menuItems)
         {
@@ -45,7 +46,7 @@ namespace YASMPWRT.Controllers
             _eventManager = Director.Instance.Get<EventManager>();
             _eventManager.NewEvent += OnNewEvent;
             
-            _view.gameObject.SetActive(IsActive);
+            _view.gameObject.SetActive(!_gameManager.IsLevel);
         }
 
         public void Dispose()
@@ -122,9 +123,18 @@ namespace YASMPWRT.Controllers
 
         private void Cancel()
         {
-            _gameManager.TogglePause();
+            if (!_gameManager.IsLevel) return;
             
-            _view.gameObject.SetActive(IsActive);
+            if (_gameManager.IsPaused)
+            {
+                _view.gameObject.SetActive(false);
+                _gameManager.Unpause();
+            }
+            else
+            {
+                _gameManager.Pause();
+                _view.gameObject.SetActive(true);
+            }
         }
 
         private void OnNewEvent(EventType type)
@@ -150,13 +160,13 @@ namespace YASMPWRT.Controllers
                     _gameManager.GoMainMenu();
                     break;
                 case EventType.MenuItemReturnToGameActivated:
-                    _gameManager.Unpause();
                     _view.gameObject.SetActive(false);
+                    _gameManager.Unpause();
                     break;
                 case EventType.MenuItemResetLevelActivated:
                     _levelManager.RestartLevel();
-                    _gameManager.Unpause();
                     _view.gameObject.SetActive(false);
+                    _gameManager.Unpause();
                     break;
                 case EventType.MenuItemCreditsActivated:
                     _view.GetComponent<CreditsView>()?.Controller?.Show();

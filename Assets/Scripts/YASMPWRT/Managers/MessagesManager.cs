@@ -28,6 +28,7 @@ namespace YASMPWRT.Managers
             _inputManager.ActionPressed += OnActionPressed;
             _inputManager.JumpPressed += OnActionPressed;
             _inputManager.MousePressed += OnActionPressed;
+            _inputManager.CancelPressed += OnActionPressed;
         }
 
         public void Dispose()
@@ -35,6 +36,7 @@ namespace YASMPWRT.Managers
             _inputManager.ActionPressed -= OnActionPressed;
             _inputManager.JumpPressed -= OnActionPressed;
             _inputManager.MousePressed -= OnActionPressed;
+            _inputManager.CancelPressed -= OnActionPressed;
             
             Director.Instance.Remove(this);
         }
@@ -70,19 +72,7 @@ namespace YASMPWRT.Managers
 
         public void Hide()
         {
-            if (_messages is null || _messages.Length == 1)
-            {
-                _messageBox?.Hide();
-            
-                _gameManager.Unpause();
-            }
-            else if (_messages.Length > _index + 1)
-            {
-                _index++;
-                
-                Show(_messages[_index]);
-            }
-            else
+            if (_messages.Length == 1)
             {
                 _index = 0;
                 _messages = null;
@@ -92,6 +82,12 @@ namespace YASMPWRT.Managers
                 _gameManager.Unpause();
 
                 _isShown = false;
+            }
+            else if (_messages?.Length > _index + 1)
+            {
+                _index++;
+                
+                Show(_messages[_index]);
             }
             
         }
