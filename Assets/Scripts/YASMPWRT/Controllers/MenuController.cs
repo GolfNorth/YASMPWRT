@@ -130,10 +130,10 @@ namespace YASMPWRT.Controllers
             switch (type)
             {
                 case EventType.MenuItemContinueActivated:
-                    _gameManager.LoadLastLevel();
+                    _gameManager.ContinueGame();
                     break;
                 case EventType.MenuItemNewGameActivated:
-                    _gameManager.LoadLevel(1);
+                    _gameManager.StartGame();
                     break;
                 case EventType.MenuItemMusicActivated:
                     _audioManager.ToggleMusic();
@@ -145,10 +145,10 @@ namespace YASMPWRT.Controllers
                     _gameManager.QuitGame();
                     break;
                 case EventType.MenuItemReturnToMenuActivated:
-                    _gameManager.LoadMainMenu();
+                    _gameManager.GoMainMenu();
                     break;
                 case EventType.MenuItemReturnToGameActivated:
-                    _gameManager.UnPause();
+                    _gameManager.Unpause();
                     _view.gameObject.SetActive(false);
                     break;
                 default:

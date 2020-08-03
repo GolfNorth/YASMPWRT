@@ -6,26 +6,31 @@ namespace YASMPWRT.Managers
 {
     public class GameManager : IDisposable
     {
-        private int _currentLevel;
+        private int _lastLevel;
         private bool _isPaused;
         private bool _isLevel;
 
-        public bool IsContinueAvailable => _currentLevel > 1;
+        public int LastLevel
+        {
+            get => _lastLevel;
+            set => _lastLevel = value;
+        }
+        
+        public bool IsContinueAvailable => _lastLevel > 1;
         public bool IsPaused => _isPaused;
         public bool IsLevel => _isLevel;
 
         public GameManager()
         {
             Director.Instance.Set(this);
-
-            _currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
-
+            
             _isLevel = SceneManager.GetActiveScene().name == "GameLevel";
+            _lastLevel = PlayerPrefs.GetInt("LastLevel", 1);
         }
         
         public void Dispose()
         {
-            PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
+            PlayerPrefs.SetInt("LastLevel", _lastLevel);
             
             Director.Instance.Remove(this);
         }
@@ -35,7 +40,7 @@ namespace YASMPWRT.Managers
             if (!_isPaused)
                 Pause();
             else
-                UnPause();
+                Unpause();
         }
 
         public void Pause()
@@ -43,31 +48,31 @@ namespace YASMPWRT.Managers
             _isPaused = true;
         }
 
-        public void UnPause()
+        public void Unpause()
         {
             _isPaused = false;
         }
 
-        public void LoadMainMenu()
+        public void StartGame()
+        {
+            LoadLevel(0);
+        }
+
+        public void ContinueGame()
+        {
+            LoadLevel(_lastLevel);
+        }
+
+        public void GoMainMenu()
         {
             _isLevel = false;
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
 
-        public void LoadLevel(int level)
+        private void LoadLevel(int level)
         {
             _isLevel = true;
             SceneManager.LoadScene("GameLevel", LoadSceneMode.Single);
-        }
-        
-        public void LoadLastLevel()
-        {
-            LoadLevel(_currentLevel);
-        }
-
-        public void LoadNextLevel()
-        {
-            LoadLevel(_currentLevel + 1);
         }
 
         public void QuitGame()

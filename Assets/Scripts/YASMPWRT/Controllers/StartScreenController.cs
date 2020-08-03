@@ -26,7 +26,7 @@ namespace YASMPWRT.Controllers
 
         private void OnAnyKeyPressed()
         {
-            _gameManager.LoadMainMenu();
+            _gameManager.GoMainMenu();
             _inputManager.AnyKeyPressed -= OnAnyKeyPressed;
         }
     }

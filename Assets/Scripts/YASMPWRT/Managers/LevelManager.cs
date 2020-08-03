@@ -89,7 +89,8 @@ namespace YASMPWRT.Managers
             }
             else
             {
-                _gameManager.LoadMainMenu();
+                _gameManager.LastLevel = _currentLevelIndex;
+                _gameManager.GoMainMenu();
             }
         }
         
