@@ -9,5 +9,6 @@
         MenuItemQuitGameActivated,
         MenuItemReturnToMenuActivated,
         MenuItemReturnToGameActivated,
+        MenuItemResetLevelActivated
     }
 }

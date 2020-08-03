@@ -4,7 +4,7 @@ using YASMPWRT.Managers;
 
 namespace YASMPWRT.Views
 {
-    public class CoinView : MonoBehaviour
+    public class CoinView : BaseView<CoinController>
     {
         private void OnTriggerEnter2D(Collider2D other)
         {

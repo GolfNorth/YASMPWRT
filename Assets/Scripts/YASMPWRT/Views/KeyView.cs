@@ -4,7 +4,7 @@ using YASMPWRT.Managers;
 
 namespace YASMPWRT.Views
 {
-    public class KeyView : MonoBehaviour
+    public class KeyView : BaseView<KeyController>
     {
         private void OnTriggerEnter2D(Collider2D other)
         {

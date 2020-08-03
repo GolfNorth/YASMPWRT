@@ -99,7 +99,7 @@ namespace YASMPWRT.Controllers
             }
         }
         
-        public void Restart()
+        public void Reset()
         {
             _rewindTimer = 0;
             _model.HasKey = false;

@@ -1,5 +1,4 @@
-﻿using System;
-using GeekBrainsInternship.Interfaces;
+﻿using GeekBrainsInternship.Interfaces;
 using UnityEngine;
 using YASMPWRT.Controllers;
 using YASMPWRT.Managers;

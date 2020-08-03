@@ -4,7 +4,7 @@ using YASMPWRT.Managers;
 
 namespace YASMPWRT.Views
 {
-    public class DoorView : MonoBehaviour
+    public class DoorView : BaseView<DoorController>
     {
         private void OnTriggerEnter2D(Collider2D other)
         {

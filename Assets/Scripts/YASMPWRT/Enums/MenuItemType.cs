@@ -8,6 +8,7 @@
         SoundEffects,
         QuitGame,
         ReturnToMenu,
-        ReturnToGame
+        ReturnToGame,
+        ResetLevel
     }
 }

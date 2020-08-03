@@ -126,6 +126,9 @@ namespace YASMPWRT.Controllers
                 case MenuItemType.ReturnToGame:
                     _eventManager.NewEventInvoke(EventType.MenuItemReturnToGameActivated);
                     break;
+                case MenuItemType.ResetLevel:
+                    _eventManager.NewEventInvoke(EventType.MenuItemResetLevelActivated);
+                    break;
                 default:
                     break;
             }
