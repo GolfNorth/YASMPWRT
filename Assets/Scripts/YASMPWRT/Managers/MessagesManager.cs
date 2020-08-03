@@ -7,9 +7,12 @@ namespace YASMPWRT.Managers
 {
     public sealed class MessagesManager : IDisposable
     {
-        private GameManager _gameManager;
-        private InputManager _inputManager;
-        private MessageBoxController _messageBox;
+        private int _index;
+        private string[] _messages;
+        private readonly GameManager _gameManager;
+        private readonly InputManager _inputManager;
+        private readonly MessageBoxController _messageBox;
+        
         
         public MessagesManager()
         {
@@ -22,17 +25,19 @@ namespace YASMPWRT.Managers
 
             _messageBox = gameObject?.GetComponent<MessageBoxView>()?.Controller;
             
-            _inputManager.AnyKeyPressed += OnAnyKeyPressed;
+            _inputManager.ActionPressed += OnActionPressed;
+            _inputManager.JumpPressed += OnActionPressed;
         }
 
         public void Dispose()
         {
-            _inputManager.AnyKeyPressed -= OnAnyKeyPressed;
+            _inputManager.ActionPressed -= OnActionPressed;
+            _inputManager.JumpPressed -= OnActionPressed;
             
             Director.Instance.Remove(this);
         }
 
-        private void OnAnyKeyPressed()
+        private void OnActionPressed()
         {
             Hide();
         }
@@ -41,17 +46,46 @@ namespace YASMPWRT.Managers
         {
             if (_messageBox is null) return;
             
-            _gameManager.Pause();
-            
             _messageBox.Message = message;
             _messageBox.Show();
+        }
+        
+        public void Show(string[] messages)
+        {
+            if (_messageBox is null || messages.Length == 0) return;
+
+            _gameManager.Pause();
+
+            _index = 0;
+            _messages = messages;
+            
+            Show(messages[_index]);
         }
 
         public void Hide()
         {
-            _gameManager.Unpause();
+            if (_messages is null || _messages.Length == 1)
+            {
+                _messageBox?.Hide();
             
-            _messageBox?.Hide();
+                _gameManager.Unpause();
+            }
+            else if (_messages.Length > _index + 1)
+            {
+                _index++;
+                
+                Show(_messages[_index]);
+            }
+            else
+            {
+                _index = 0;
+                _messages = null;
+                
+                _messageBox?.Hide();
+        
+                _gameManager.Unpause();
+            }
+            
         }
     }
 }

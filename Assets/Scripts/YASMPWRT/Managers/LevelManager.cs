@@ -1,6 +1,5 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using YASMPWRT.Controllers;
 using YASMPWRT.Data;
 using YASMPWRT.Enums;
@@ -13,10 +12,12 @@ namespace YASMPWRT.Managers
         private readonly GameManager _gameManager;
         private readonly AudioManager _audioManager;
         private readonly ScoreManager _scoreManager;
+        private readonly MessagesManager _messagesManager;
         private int _currentLevelIndex;
         private GameObject _currentLevel;
         private BridgeController[] _bridges;
         private CoinController[] _coins;
+        private HintController[] _hints;
         private FlagController _flag;
         private DoorController _door;
         private KeyController _key;
@@ -31,6 +32,7 @@ namespace YASMPWRT.Managers
             _gameManager = Director.Instance.Get<GameManager>();
             _audioManager = Director.Instance.Get<AudioManager>();
             _scoreManager = Director.Instance.Get<ScoreManager>();
+            _messagesManager = Director.Instance.Get<MessagesManager>();
         }
         
         public void Dispose()
@@ -73,6 +75,15 @@ namespace YASMPWRT.Managers
             {
                 _coins[i] = coinViews[i].Controller;
             }
+            
+            var hintsView = GameObject.FindObjectsOfType<HintView>();
+            
+            _hints = new HintController[hintsView.Length];
+
+            for (var i = 0; i < _hints.Length; i++)
+            {
+                _hints[i] = hintsView[i].Controller;
+            }
         }
 
         public void RestartLevel()
@@ -94,12 +105,18 @@ namespace YASMPWRT.Managers
             {
                 _coins[i].Reset();
             }
+            
+            for (var i = 0; i < _hints.Length; i++)
+            {
+                _hints[i].Reset();
+            }
         }
 
         private void EndLevel()
         {
             _bridges = null;
             _coins = null;
+            _hints = null;
             _flag = null;
             _door = null;
             _key = null;
@@ -137,7 +154,12 @@ namespace YASMPWRT.Managers
 
         public void EnterDoor()
         {
-            if (!_playerHasKey) return;
+            if (!_playerHasKey)
+            {
+                _messagesManager.Show("First I need to find the key");
+                
+                return;
+            }
             
             _audioManager.PlaySoundEffect(SoundType.Success);
             
@@ -147,7 +169,7 @@ namespace YASMPWRT.Managers
         public void KillPlayer()
         {
             _player.Die();
-            
+
             _audioManager.PlaySoundEffect(SoundType.Death);
         }
 
