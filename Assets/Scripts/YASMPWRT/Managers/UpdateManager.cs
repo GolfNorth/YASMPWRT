@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using GeekBrainsInternship.Interfaces;
+using YASMPWRT.Interfaces;
 
 namespace YASMPWRT.Managers
 {

@@ -1,5 +1,5 @@
-﻿using GeekBrainsInternship.Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
+using YASMPWRT.Interfaces;
 
 namespace YASMPWRT.Views
 {

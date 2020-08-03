@@ -1,4 +1,4 @@
-﻿using GeekBrainsInternship.Interfaces;
+﻿using YASMPWRT.Interfaces;
 
 namespace YASMPWRT.Controllers
 {

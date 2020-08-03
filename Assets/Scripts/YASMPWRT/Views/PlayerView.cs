@@ -1,6 +1,6 @@
-﻿using GeekBrainsInternship.Interfaces;
-using UnityEngine;
+﻿using UnityEngine;
 using YASMPWRT.Controllers;
+using YASMPWRT.Interfaces;
 using YASMPWRT.Managers;
 
 namespace YASMPWRT.Views

@@ -1,4 +1,4 @@
-﻿namespace GeekBrainsInternship.Interfaces
+﻿namespace YASMPWRT.Interfaces
 {
     public interface IInitializable
     {

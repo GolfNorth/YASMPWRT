@@ -1,4 +1,4 @@
-﻿using GeekBrainsInternship.Interfaces;
+﻿using YASMPWRT.Interfaces;
 using YASMPWRT.Managers;
 using YASMPWRT.Models;
 using YASMPWRT.Structs;

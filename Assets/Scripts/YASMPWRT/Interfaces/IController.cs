@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GeekBrainsInternship.Interfaces
+namespace YASMPWRT.Interfaces
 {
     public interface IController<T> : IDisposable where T : class
     {

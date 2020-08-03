@@ -1,6 +1,6 @@
 ﻿using System;
-using GeekBrainsInternship.Interfaces;
 using UnityEngine;
+using YASMPWRT.Interfaces;
 
 namespace YASMPWRT.Managers
 {

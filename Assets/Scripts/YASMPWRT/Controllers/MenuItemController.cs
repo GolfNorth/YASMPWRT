@@ -1,6 +1,6 @@
-﻿using GeekBrainsInternship.Interfaces;
-using UnityEngine.UI;
+﻿using UnityEngine.UI;
 using YASMPWRT.Enums;
+using YASMPWRT.Interfaces;
 using YASMPWRT.Managers;
 using YASMPWRT.Models;
 using YASMPWRT.Views;

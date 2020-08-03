@@ -1,19 +1,20 @@
 ﻿using UnityEngine;
 using YASMPWRT.Controllers;
-using YASMPWRT.Managers;
 
 namespace YASMPWRT.Views
 {
     public class KeyView : BaseView<KeyController>
     {
+        private void Awake()
+        {
+            Controller = new KeyController(this);
+        }
+
         private void OnTriggerEnter2D(Collider2D other)
         {
             if (other.gameObject.name != "Player") return;
 
-            var playerController = Director.Instance.Get<PlayerController>();
-            playerController?.GetKey();
-            
-            gameObject.SetActive(false);
+            Controller.Collect();
         }
     }
 }
