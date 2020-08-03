@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using YASMPWRT.Data;
+using YASMPWRT.Enums;
 
 namespace YASMPWRT.Managers
 {
@@ -64,11 +65,11 @@ namespace YASMPWRT.Managers
             _audioSource.Play();
         }
 
-        public void PlaySoundEffect(AudioClip audioClip)
+        public void PlaySoundEffect(SoundType soundType)
         {
             if (!_isSoundEffectsOn) return;
             
-            _audioSource.PlayOneShot(audioClip);
+            _audioSource.PlayOneShot(AudioClipsData.Instance.Sounds[soundType]);
         }
 
         public void ToggleMusic()

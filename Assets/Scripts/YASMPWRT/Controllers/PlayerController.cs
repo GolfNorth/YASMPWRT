@@ -1,5 +1,6 @@
 ﻿using GeekBrainsInternship.Interfaces;
 using UnityEngine;
+using YASMPWRT.Enums;
 using YASMPWRT.Managers;
 using YASMPWRT.Models;
 using YASMPWRT.Structs;
@@ -30,6 +31,7 @@ namespace YASMPWRT.Controllers
             _inputManager.RewindUnpressed += OnRewindUnpressed;
             _inputManager.JumpPressed += OnJumpPressed;
             
+            Director.Instance.Set(this);
             Director.Instance.Get<UpdateManager>().Add(this);
         }
 
@@ -39,9 +41,25 @@ namespace YASMPWRT.Controllers
             _inputManager.RewindUnpressed -= OnRewindUnpressed;
             _inputManager.JumpPressed -= OnJumpPressed;
             
-            Director.Instance.Get<UpdateManager>().Remove(this);
+            Director.Instance?.Remove(this);
+            Director.Instance?.Get<UpdateManager>().Remove(this);
         }
 
+        public void Tick()
+        {
+            _view.Move(_inputManager.HorizontalAxis, _model.Speed);
+        }
+
+        public void FixedTick()
+        {
+            if (_gameManager.IsPaused) return;
+
+            if (_isRewind)
+                ExecuteRewind();
+            else
+                RecordRewind();
+        }
+        
         private void OnRewindPressed()
         {
             if (_gameManager.IsPaused) return;
@@ -62,24 +80,47 @@ namespace YASMPWRT.Controllers
         private void OnJumpPressed()
         {
             if (_gameManager.IsPaused) return;
+
+            Jump(_model.JumpForce);
+        }
+
+        public void ThrowUp()
+        {
+            Jump(_model.JumpForce * 1.5f, true);
             
-            _view.Jump(_model.JumpForce);
+            Debug.Log(1);
+        }
+
+        private void Jump(float force, bool certainly = false)
+        {
+            if (_view.Jump(force, certainly))
+            {
+                _audioManager.PlaySoundEffect(SoundType.Jump);
+            }
         }
         
         public void Restart()
         {
             _rewindTimer = 0;
             _model.HasKey = false;
+            _view.Dead = false;
         }
 
-        public void FixedTick()
+        public void GetCoin()
         {
-            if (_gameManager.IsPaused) return;
-
-            if (_isRewind)
-                ExecuteRewind();
-            else
-                RecordRewind();
+            _audioManager.PlaySoundEffect(SoundType.Coin);
+        }
+        
+        public void GetKey()
+        {
+            _model.HasKey = true;
+            _audioManager.PlaySoundEffect(SoundType.Key);
+        }
+        
+        public void Die()
+        {
+            _view.Dead = true;
+            _audioManager.PlaySoundEffect(SoundType.Death);
         }
 
         private void ExecuteRewind()
@@ -122,11 +163,6 @@ namespace YASMPWRT.Controllers
             };
 
             _model.Rewind.AddLast(newRewind);
-        }
-
-        public void Tick()
-        {
-            _view.Move(_inputManager.HorizontalAxis, _model.Speed);
         }
     }
 }

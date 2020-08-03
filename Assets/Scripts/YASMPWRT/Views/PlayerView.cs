@@ -90,10 +90,16 @@ namespace YASMPWRT.Views
             _rigidbody2D.velocity = velocity;
         }
 
-        public void Jump(float force)
+        public bool Jump(float force, bool certainly)
         {
-            if (_grounded)
+            if (_grounded || certainly)
+            {
                 _rigidbody2D.AddForce(Vector2.up * force);
+
+                return true;
+            }
+
+            return false;
         }
 
 
