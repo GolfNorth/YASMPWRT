@@ -78,8 +78,6 @@ namespace YASMPWRT.Views
 
         public bool Jump(float direction, bool certainly)
         {
-            Debug.Log(direction);
-            
             if (!_grounded && !certainly) return false;
             
             var velocity = _rigidbody2D.velocity;

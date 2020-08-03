@@ -46,11 +46,13 @@ namespace YASMPWRT.Managers
         public void Pause()
         {
             _isPaused = true;
+            Time.timeScale = 0;
         }
 
         public void Unpause()
         {
             _isPaused = false;
+            Time.timeScale = 1;
         }
 
         public void StartGame()
@@ -66,12 +68,14 @@ namespace YASMPWRT.Managers
         public void GoMainMenu()
         {
             _isLevel = false;
+            _isPaused = false;
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         }
 
         private void LoadLevel(int level)
         {
             _isLevel = true;
+            _isPaused = false;
             SceneManager.LoadScene("GameLevel", LoadSceneMode.Single);
         }
 
