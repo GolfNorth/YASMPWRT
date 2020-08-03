@@ -18,7 +18,17 @@ namespace YASMPWRT.Managers
         }
         
         public bool IsContinueAvailable => _currentLevel > 1;
-        public bool IsPaused => _isPaused;
+
+        public bool IsPaused
+        {
+            get => _isPaused;
+            private set
+            {
+                _isPaused = value;
+
+                Time.timeScale = value ? 0 : 1;
+            }
+        }
         public bool IsLevel => _isLevel;
 
         public GameManager()
@@ -40,24 +50,17 @@ namespace YASMPWRT.Managers
 
         public void TogglePause()
         {
-            if (!_isPaused)
-                Pause();
-            else
-                Unpause();
+            IsPaused = !IsPaused;
         }
 
         public void Pause()
         {
-            _isPaused = true;
-            
-            Time.timeScale = 0;
+            IsPaused = true;
         }
 
         public void Unpause()
         {
-            _isPaused = false;
-            
-            Time.timeScale = 1;
+            IsPaused = false;
         }
 
         public void StartGame()
