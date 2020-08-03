@@ -12,6 +12,7 @@ namespace YASMPWRT.Managers
         private readonly GameManager _gameManager;
         private readonly AudioManager _audioManager;
         private readonly ScoreManager _scoreManager;
+        private readonly MessagesManager _messagesManager;
         private int _currentLevelIndex;
         private GameObject _currentLevel;
         private BridgeController[] _bridges;
@@ -31,6 +32,7 @@ namespace YASMPWRT.Managers
             _gameManager = Director.Instance.Get<GameManager>();
             _audioManager = Director.Instance.Get<AudioManager>();
             _scoreManager = Director.Instance.Get<ScoreManager>();
+            _messagesManager = Director.Instance.Get<MessagesManager>();
         }
         
         public void Dispose()
@@ -132,8 +134,10 @@ namespace YASMPWRT.Managers
             }
             else
             {
-                _gameManager.CurrentLevel = _currentLevelIndex;
+                _gameManager.CurrentLevel = 0;
                 _gameManager.GoMainMenu();
+                
+                _messagesManager.Show($"That's all!\nYou collected {_scoreManager.Score} coins out of 100");
             }
         }
         
@@ -155,7 +159,7 @@ namespace YASMPWRT.Managers
 
         public void EnterDoor()
         {
-            if (!_playerHasKey) return;
+            if (!_playerHasKey || _player.IsDead) return;
 
             _audioManager.PlaySoundEffect(SoundType.Success);
             

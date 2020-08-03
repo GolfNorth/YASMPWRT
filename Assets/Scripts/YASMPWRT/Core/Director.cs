@@ -51,7 +51,8 @@ namespace YASMPWRT.Managers
         private void Awake()
         {
             _objects = new Dictionary<Type, object>();
-            _updateManager = new UpdateManager();
+
+            _updateManager = Instance.Get<UpdateManager>();
         }
 
         private void Update()
