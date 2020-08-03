@@ -13,7 +13,7 @@ namespace YASMPWRT.Data
         {
             Levels = new[]
             {
-                string.Empty,
+                "Levels/Level-Test",
                 "Levels/Level-1",
                 "Levels/Level-2",
                 "Levels/Level-3",

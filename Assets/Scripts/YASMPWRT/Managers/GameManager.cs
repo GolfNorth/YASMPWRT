@@ -24,7 +24,7 @@ namespace YASMPWRT.Managers
         {
             Director.Instance.Set(this);
             
-            _isLevel = SceneManager.GetActiveScene().name == "GameLevel";
+            _isLevel = SceneManager.GetActiveScene().name == "GameLevel" || SceneManager.GetActiveScene().name == "TestLevel";
             _lastLevel = PlayerPrefs.GetInt("LastLevel", 1);
         }
         

@@ -4,7 +4,6 @@ using YASMPWRT.Controllers;
 using YASMPWRT.Data;
 using YASMPWRT.Enums;
 using YASMPWRT.Views;
-using Object = UnityEngine.Object;
 
 namespace YASMPWRT.Managers
 {
@@ -45,14 +44,14 @@ namespace YASMPWRT.Managers
             _playerHasKey = false;
             _score = 0;
 
-            _currentLevel = Object.Instantiate(Resources.Load<GameObject>(LevelsData.Instance.Levels[index]));
-            _door = Object.FindObjectOfType<DoorView>().Controller;
-            _key = Object.FindObjectOfType<KeyView>().Controller;
+            _currentLevel = GameObject.Instantiate(Resources.Load<GameObject>(LevelsData.Instance.Levels[index]));
+            _door = GameObject.FindObjectOfType<DoorView>().Controller;
+            _key = GameObject.FindObjectOfType<KeyView>().Controller;
             
-            _player = Object.FindObjectOfType<PlayerView>().Controller;
+            _player = GameObject.FindObjectOfType<PlayerView>().Controller;
             _player.Reset();
 
-            var coinViews = Object.FindObjectsOfType<CoinView>();
+            var coinViews = GameObject.FindObjectsOfType<CoinView>();
             
             _coins = new CoinController[coinViews.Length];
 
@@ -79,7 +78,7 @@ namespace YASMPWRT.Managers
         
         public void EndLevel()
         {
-            Object.Destroy(_currentLevel);
+            GameObject.Destroy(_currentLevel);
             
             _scoreManager.AddScore(_score);
 
@@ -113,6 +112,8 @@ namespace YASMPWRT.Managers
         public void EnterDoor()
         {
             if (!_playerHasKey) return;
+            
+            Debug.Log(_playerHasKey);
             
             _audioManager.PlaySoundEffect(SoundType.Success);
             

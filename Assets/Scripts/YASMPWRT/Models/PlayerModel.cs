@@ -7,7 +7,6 @@ namespace YASMPWRT.Models
     {
         private LinkedList<RewindFrame> _rewind = new LinkedList<RewindFrame>();
         private int _maxRewindTime = 8;
-        private bool _hasKey;
         private float _speed = 10f;
         private float _jumpForce = 700f;
 
@@ -21,12 +20,6 @@ namespace YASMPWRT.Models
         {
             get => _jumpForce;
             set => _jumpForce = value;
-        }
-
-        public bool HasKey
-        {
-            get => _hasKey;
-            set => _hasKey = value;
         }
 
         public LinkedList<RewindFrame> Rewind

@@ -47,6 +47,8 @@ namespace YASMPWRT.Controllers
 
         public void Tick()
         {
+            if (_view.Dead || _gameManager.IsPaused) return;
+            
             _view.Move(_inputManager.HorizontalAxis, _model.Speed);
         }
 
@@ -79,7 +81,7 @@ namespace YASMPWRT.Controllers
         
         private void OnJumpPressed()
         {
-            if (_gameManager.IsPaused) return;
+            if (_view.Dead || _gameManager.IsPaused) return;
 
             Jump(_model.JumpForce);
         }
@@ -87,8 +89,6 @@ namespace YASMPWRT.Controllers
         public void ThrowUp()
         {
             Jump(_model.JumpForce * 1.5f, true);
-            
-            Debug.Log(1);
         }
 
         private void Jump(float force, bool certainly = false)
@@ -102,24 +102,13 @@ namespace YASMPWRT.Controllers
         public void Reset()
         {
             _rewindTimer = 0;
-            _model.HasKey = false;
             _view.Dead = false;
-        }
-
-        public void GetCoin()
-        {
-            _audioManager.PlaySoundEffect(SoundType.Coin);
-        }
-        
-        public void GetKey()
-        {
-            _model.HasKey = true;
-            _audioManager.PlaySoundEffect(SoundType.Key);
         }
         
         public void Die()
         {
             _view.Dead = true;
+            _view.Move(0, 0);
             _audioManager.PlaySoundEffect(SoundType.Death);
         }
 
@@ -145,6 +134,8 @@ namespace YASMPWRT.Controllers
         
         private void RecordRewind()
         {
+            if (_view.Dead) return;
+            
             _rewindTimer += Time.fixedDeltaTime;
 
             while (_rewindTimer > _model.MaxRewindTime)
