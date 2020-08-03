@@ -8,6 +8,7 @@ namespace YASMPWRT.Managers
     public sealed class MessagesManager : IDisposable
     {
         private int _index;
+        private bool _isShown;
         private string[] _messages;
         private readonly GameManager _gameManager;
         private readonly InputManager _inputManager;
@@ -40,6 +41,8 @@ namespace YASMPWRT.Managers
 
         private void OnActionPressed()
         {
+            if (!_isShown) return;
+            
             Hide();
         }
         
@@ -47,15 +50,17 @@ namespace YASMPWRT.Managers
         {
             if (_messageBox is null) return;
             
+            _gameManager.Pause();
+            
             _messageBox.Message = message;
             _messageBox.Show();
+
+            _isShown = true;
         }
         
         public void Show(string[] messages)
         {
             if (_messageBox is null || messages.Length == 0) return;
-
-            _gameManager.Pause();
 
             _index = 0;
             _messages = messages;
@@ -85,6 +90,8 @@ namespace YASMPWRT.Managers
                 _messageBox?.Hide();
         
                 _gameManager.Unpause();
+
+                _isShown = false;
             }
             
         }

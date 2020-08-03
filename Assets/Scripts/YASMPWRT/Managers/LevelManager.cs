@@ -125,9 +125,12 @@ namespace YASMPWRT.Managers
             
             _scoreManager.AddScore(_score);
 
-            if (LevelsData.Instance.Levels.Length > _currentLevelIndex + 1)
+            _currentLevelIndex++;
+            
+            if (LevelsData.Instance.Levels.Length > _currentLevelIndex)
             {
-                LoadLevel(_currentLevelIndex + 1);
+                _gameManager.CurrentLevel = _currentLevelIndex;
+                LoadLevel(_currentLevelIndex);
             }
             else
             {

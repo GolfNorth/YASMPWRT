@@ -16,8 +16,6 @@ namespace YASMPWRT.Managers
             get => _currentLevel;
             set => _currentLevel = value;
         }
-        
-        public bool IsContinueAvailable => _currentLevel > 1;
 
         public bool IsPaused
         {
@@ -65,7 +63,7 @@ namespace YASMPWRT.Managers
 
         public void StartGame()
         {
-            LoadLevel(0);
+            LoadLevel(1);
         }
 
         public void ContinueGame()

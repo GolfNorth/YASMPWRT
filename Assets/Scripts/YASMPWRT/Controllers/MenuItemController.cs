@@ -4,6 +4,7 @@ using YASMPWRT.Interfaces;
 using YASMPWRT.Managers;
 using YASMPWRT.Models;
 using YASMPWRT.Views;
+using EventType = YASMPWRT.Enums.EventType;
 
 namespace YASMPWRT.Controllers
 {
@@ -31,7 +32,7 @@ namespace YASMPWRT.Controllers
             {
                 var gameManager = Director.Instance.Get<GameManager>();
                 
-                if (!gameManager.IsContinueAvailable)
+                if (gameManager.CurrentLevel < 2)
                     _view.gameObject.SetActive(false);
 
                 _model.Active = false;
