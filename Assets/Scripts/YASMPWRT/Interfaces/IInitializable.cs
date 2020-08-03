@@ -5,7 +5,7 @@
         void Initialize();
     }
     
-    public interface IInitializable<T>
+    public interface IInitializable<in T>
     {
         void Initialize(T context);
     }

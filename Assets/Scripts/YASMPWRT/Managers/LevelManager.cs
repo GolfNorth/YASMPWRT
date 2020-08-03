@@ -15,6 +15,7 @@ namespace YASMPWRT.Managers
         private int _currentLevelIndex;
         private GameObject _currentLevel;
         private CoinController[] _coins;
+        private FlagController _flag;
         private DoorController _door;
         private KeyController _key;
         private PlayerController _player;
@@ -45,10 +46,12 @@ namespace YASMPWRT.Managers
             _score = 0;
 
             _currentLevel = GameObject.Instantiate(Resources.Load<GameObject>(LevelsData.Instance.Levels[index]));
+            _flag = GameObject.FindObjectOfType<FlagView>().Controller;
             _door = GameObject.FindObjectOfType<DoorView>().Controller;
             _key = GameObject.FindObjectOfType<KeyView>().Controller;
             
             _player = GameObject.FindObjectOfType<PlayerView>().Controller;
+            _player.Spawn(_flag.Position);
             _player.Reset();
 
             var coinViews = GameObject.FindObjectsOfType<CoinView>();
@@ -65,7 +68,8 @@ namespace YASMPWRT.Managers
         {
             _playerHasKey = false;
             _score = 0;
-
+            
+            _player.Spawn(_flag.Position);
             _player.Reset();
             _door.Reset();
             _key.Reset();
@@ -78,6 +82,11 @@ namespace YASMPWRT.Managers
         
         public void EndLevel()
         {
+            _coins = null;
+            _flag = null;
+            _door = null;
+            _key = null;
+            
             GameObject.Destroy(_currentLevel);
             
             _scoreManager.AddScore(_score);

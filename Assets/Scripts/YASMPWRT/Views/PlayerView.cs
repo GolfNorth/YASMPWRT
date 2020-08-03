@@ -62,6 +62,11 @@ namespace YASMPWRT.Views
             Director.Instance?.Get<UpdateManager>().Remove(this);
         }
 
+        public void Spawn(Vector3 position)
+        {
+            transform.position = position;
+        }
+
         public void Run(float direction)
         {
             var velocity = _rigidbody2D.velocity;

@@ -4,7 +4,7 @@ namespace YASMPWRT.Data
 {
     public sealed class LevelsData
     {
-        private static Lazy<LevelsData> _instance = new Lazy<LevelsData>(() => new LevelsData());
+        private static readonly Lazy<LevelsData> _instance = new Lazy<LevelsData>(() => new LevelsData());
 
         public static LevelsData Instance => _instance.Value;
         public string[] Levels { get; private set; }

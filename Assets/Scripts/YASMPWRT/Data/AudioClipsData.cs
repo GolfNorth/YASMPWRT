@@ -7,7 +7,7 @@ namespace YASMPWRT.Data
 {
     public class AudioClipsData
     {
-        private static Lazy<AudioClipsData> _instance = new Lazy<AudioClipsData>(() => new AudioClipsData());
+        private static readonly Lazy<AudioClipsData> _instance = new Lazy<AudioClipsData>(() => new AudioClipsData());
 
         public static AudioClipsData Instance => _instance.Value;
         public AudioClip MusicLoop { get; private set; }

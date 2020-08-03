@@ -99,6 +99,11 @@ namespace YASMPWRT.Controllers
             _rewindTimer = 0;
             _model.Dead = false;
         }
+
+        public void Spawn(Vector3 position)
+        {
+            _view.Spawn(position);
+        }
         
         public void Die()
         {
