@@ -18,11 +18,14 @@ namespace YASMPWRT.Controllers
 
         public void Collapse()
         {
-            _view.gameObject.SetActive(false);
+            if (_view.IsCollapsing)
+                _view.gameObject.SetActive(false);
         }
 
         public void Reset()
         {
+            _view.IsCollapsing = false;
+            
             _view.gameObject.SetActive(true);
         }
     }

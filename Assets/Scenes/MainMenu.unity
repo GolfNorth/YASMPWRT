@@ -227,8 +227,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   message: "Credits\n\nDesigned, progremmed by\nVadim \"GolfNorth\" Ackhulpanov\n\nGraphics,
-    music, SFX by\nKenney (www.kenney.nl)\n\nUnity\nUnity Technologies\n\nThanks for
-    playing\n2020 \xA9 Vadim \"GolfNorth\" Akchulpanov"
+    music, SFX by\nKenney (www.kenney.nl)\n\nMade with Unity\nUnity Technologies\n\nThanks
+    for playing\n2020 \xA9 Vadim \"GolfNorth\" Akchulpanov"
 --- !u!1 &619398736
 GameObject:
   m_ObjectHideFlags: 0

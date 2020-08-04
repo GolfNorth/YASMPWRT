@@ -26,15 +26,27 @@ namespace YASMPWRT.Managers
                 _isPaused = value;
 
                 Time.timeScale = value ? 0 : 1;
+
+                Cursor.visible = !_isLevel || _isPaused;
             }
         }
-        public bool IsLevel => _isLevel;
+
+        public bool IsLevel
+        {
+            get => _isLevel;
+            private set
+            {
+                _isLevel = value;
+
+                Cursor.visible = !_isLevel || _isPaused;
+            }
+        }
 
         public GameManager()
         {
             Director.Instance.Set(this);
             
-            _isLevel = SceneManager.GetActiveScene().name == "GameLevel" || SceneManager.GetActiveScene().name == "TestLevel";
+            IsLevel = SceneManager.GetActiveScene().name == "GameLevel" || SceneManager.GetActiveScene().name == "TestLevel";
             _currentLevel = PlayerPrefs.GetInt("CurrentLevel", 1);
 
             _levelManager = Director.Instance.Get<LevelManager>();
@@ -69,7 +81,7 @@ namespace YASMPWRT.Managers
 
         public void GoMainMenu()
         {
-            _isLevel = false;
+            IsLevel = false;
             
             SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
             
@@ -78,7 +90,7 @@ namespace YASMPWRT.Managers
 
         private void LoadLevel(int level)
         {
-            _isLevel = true;
+            IsLevel = true;
             _currentLevel = level;
             
             SceneManager.LoadSceneAsync("GameLevel", LoadSceneMode.Single).completed += OnGameLevelLoaded;

@@ -15,6 +15,12 @@ namespace YASMPWRT.Views
 
         private Vector3 _startPosition;
         private bool _isCollapsing;
+
+        public bool IsCollapsing
+        {
+            get => _isCollapsing;
+            set => _isCollapsing = value;
+        }
         
         private void Awake()
         {
@@ -37,7 +43,7 @@ namespace YASMPWRT.Views
  
             var duration = 0f;
             
-            while(duration < shakeDuration)
+            while(duration < shakeDuration && _isCollapsing)
             {
                 spriteTransform.localPosition = _startPosition + Random.insideUnitSphere * shakeAmount;
                 
@@ -45,11 +51,12 @@ namespace YASMPWRT.Views
                 
                 yield return null;
             }
-
-            _isCollapsing = false;
+            
             spriteTransform.localPosition = _startPosition;
 
             Controller.Collapse();
+            
+            _isCollapsing = false;
         }
     }
 }

@@ -15,6 +15,7 @@ namespace YASMPWRT.Controllers
         private readonly MenuItemType _type;
         private readonly EventManager _eventManager;
         private readonly AudioManager _audioManager;
+        private readonly MessagesManager _messagesManager;
         private readonly Text _textComponent;
 
         public bool IsActive => _model.Active;
@@ -27,6 +28,7 @@ namespace YASMPWRT.Controllers
             _model = new MenuItemModel();
 
             _eventManager = Director.Instance.Get<EventManager>();
+            _messagesManager = Director.Instance.Get<MessagesManager>();
 
             if (type == MenuItemType.Continue)
             {
@@ -104,6 +106,8 @@ namespace YASMPWRT.Controllers
 
         public void Action()
         {
+            if (_messagesManager.IsShown) return;
+            
             switch (_type)
             {
                 case MenuItemType.Continue:
