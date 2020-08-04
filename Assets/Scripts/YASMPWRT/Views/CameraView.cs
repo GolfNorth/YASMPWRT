@@ -11,7 +11,7 @@ namespace YASMPWRT.Views
         {
             var windowAspect = Screen.width / (float)Screen.height;
             
-            if (windowAspect <= maxAspectRatio) return; 
+            if (windowAspect <= maxAspectRatio) return;
             
             var scaleHeight = windowAspect / maxAspectRatio;
             var cameraComponent = GetComponent<Camera>();

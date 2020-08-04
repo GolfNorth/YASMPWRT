@@ -13,8 +13,7 @@ GameObject:
   - component: {fileID: 1342292414732897578}
   - component: {fileID: 1342292414732897575}
   - component: {fileID: 1342292414732897574}
-  - component: {fileID: 1342292414732897573}
-  - component: {fileID: 1342292414732897572}
+  - component: {fileID: 3975027915490576355}
   m_Layer: 0
   m_Name: LevelCamera
   m_TagString: MainCamera
@@ -56,9 +55,9 @@ Camera:
   m_FocalLength: 50
   m_NormalizedViewPortRect:
     serializedVersion: 2
-    x: 0
+    x: 0.07
     y: 0
-    width: 1
+    width: 0.87
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
@@ -163,27 +162,7 @@ MonoBehaviour:
         Culture=neutral, PublicKeyToken=null
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 1342292414945612295}
---- !u!114 &1342292414732897573
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342292414732897579}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a160d838ff8b4b4693ac20007e008c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AssetsPPU: 16
-  m_RefResolutionX: 256
-  m_RefResolutionY: 128
-  m_UpscaleRT: 0
-  m_PixelSnapping: 0
-  m_CropFrameX: 0
-  m_CropFrameY: 0
-  m_StretchFill: 0
---- !u!114 &1342292414732897572
+--- !u!114 &3975027915490576355
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
