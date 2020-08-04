@@ -35,9 +35,11 @@ namespace YASMPWRT.Controllers
                 var gameManager = Director.Instance.Get<GameManager>();
                 
                 if (gameManager.CurrentLevel < 2)
+                {
                     _view.gameObject.SetActive(false);
 
-                _model.Active = false;
+                    _model.Active = false;
+                }
             }
 
             if (type == MenuItemType.Music || type == MenuItemType.SoundEffects)

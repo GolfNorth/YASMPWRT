@@ -27,6 +27,8 @@ namespace YASMPWRT.Controllers
 
         public void Reset()
         {
+            if (_view is null) return;
+            
             _view.gameObject.SetActive(true);
         }
     }

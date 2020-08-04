@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using YASMPWRT.Controllers;
 using YASMPWRT.Data;
@@ -43,13 +44,23 @@ namespace YASMPWRT.Managers
         public void LoadLevel(int index)
         {
             if (LevelsData.Instance.Levels.Length <= index) return;
-            
+
             _currentLevelIndex = index;
             
+            Director.Instance.RunCoroutine(LoadLevel());
+        }
+
+        private IEnumerator LoadLevel()
+        {
+            yield return new WaitForEndOfFrame();
+
             _playerHasKey = false;
             _score = 0;
+            
+            if (_currentLevelIndex == 1)
+                _scoreManager.ResetScore();
 
-            _currentLevel = GameObject.Instantiate(Resources.Load<GameObject>(LevelsData.Instance.Levels[index]));
+            _currentLevel = GameObject.Instantiate(Resources.Load<GameObject>(LevelsData.Instance.Levels[_currentLevelIndex]));
             _flag = GameObject.FindObjectOfType<FlagView>().Controller;
             _door = GameObject.FindObjectOfType<DoorView>().Controller;
             _key = GameObject.FindObjectOfType<KeyView>().Controller;
@@ -95,7 +106,7 @@ namespace YASMPWRT.Managers
             _player.Reset();
             _door.Reset();
             _key.Reset();
-            
+
             for (var i = 0; i < _bridges.Length; i++)
             {
                 _bridges[i].Reset();

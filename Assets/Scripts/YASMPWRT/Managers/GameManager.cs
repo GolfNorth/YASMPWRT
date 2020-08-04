@@ -15,7 +15,12 @@ namespace YASMPWRT.Managers
         public int CurrentLevel
         {
             get => _currentLevel;
-            set => _currentLevel = value;
+            set
+            {
+                _currentLevel = value;
+                
+                PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
+            }
         }
 
         public bool IsPaused
@@ -54,8 +59,6 @@ namespace YASMPWRT.Managers
         
         public void Dispose()
         {
-            PlayerPrefs.SetInt("CurrentLevel", _currentLevel);
-            
             Director.Instance.Remove(this);
         }
 
