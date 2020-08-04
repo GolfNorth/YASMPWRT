@@ -1067,6 +1067,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2167228279832822607}
+  - {fileID: 3133202019730371453}
   m_Father: {fileID: 9065552540798838316}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3116,7 +3117,7 @@ Tilemap:
   - m_RefCount: 13
     m_Data: {fileID: 11400000, guid: 4c5d8a2bb0643ef4ba493eb2e0e90447, type: 2}
   - m_RefCount: 1
-    m_Data: {fileID: 11400000, guid: f4e20453a56390a498ceaf04bd9e8768, type: 2}
+    m_Data: {fileID: 11400000, guid: aa51dbe6cafde78449a5405ffdacbb41, type: 2}
   - m_RefCount: 8
     m_Data: {fileID: 11400000, guid: 3fdeef8a1ca76e242b04ba2abb219731, type: 2}
   m_TileSpriteArray:
@@ -3144,7 +3145,7 @@ Tilemap:
     m_Data: {fileID: -6418820718253649500, guid: 97925c5557b76434592b48e5354ebe05,
       type: 3}
   - m_RefCount: 1
-    m_Data: {fileID: 8927762133969041236, guid: 97925c5557b76434592b48e5354ebe05,
+    m_Data: {fileID: 6499310949172841150, guid: 97925c5557b76434592b48e5354ebe05,
       type: 3}
   - m_RefCount: 8
     m_Data: {fileID: -2217653452879179627, guid: 97925c5557b76434592b48e5354ebe05,
@@ -4802,7 +4803,7 @@ PrefabInstance:
     - target: {fileID: 5779588684196957895, guid: 37d6efc60439e1540b3ae8293fadd273,
         type: 3}
       propertyPath: messages.Array.size
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5779588684196957895, guid: 37d6efc60439e1540b3ae8293fadd273,
         type: 3}
@@ -4817,9 +4818,7 @@ PrefabInstance:
     - target: {fileID: 5779588684196957895, guid: 37d6efc60439e1540b3ae8293fadd273,
         type: 3}
       propertyPath: messages.Array.data[1]
-      value: 'Ok, ok ... this is definitely the last one.
-
-        Good luck!'
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 5779588684196957895, guid: 37d6efc60439e1540b3ae8293fadd273,
         type: 3}
@@ -5438,6 +5437,115 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1423072007872710346, guid: d18ff0747b1634e4c8f21a5f2c0703ba,
     type: 3}
   m_PrefabInstance: {fileID: 8781038446960249491}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &8885153376396770744
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 5131173314068628643}
+    m_Modifications:
+    - target: {fileID: 5779588684196957888, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_Name
+      value: Hint (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957888, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_Icon
+      value: 
+      objectReference: {fileID: -5487077368411116049, guid: 0000000000000000d000000000000000,
+        type: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -28
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957895, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: messages.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957895, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: message
+      value: 'I found a key, but bridge '
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957895, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: messages.Array.data[0]
+      value: Sometimes, there is no other choice but to start over. You can do it
+        in the menu.
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957895, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: messages.Array.data[1]
+      value: 'Ok, ok ... this is definitely the last one.
+
+        Good luck!'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5779588684196957895, guid: 37d6efc60439e1540b3ae8293fadd273,
+        type: 3}
+      propertyPath: messages.Array.data[2]
+      value: Test
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 37d6efc60439e1540b3ae8293fadd273, type: 3}
+--- !u!4 &3133202019730371453 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5779588684196957893, guid: 37d6efc60439e1540b3ae8293fadd273,
+    type: 3}
+  m_PrefabInstance: {fileID: 8885153376396770744}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8886208831406849826
 PrefabInstance:

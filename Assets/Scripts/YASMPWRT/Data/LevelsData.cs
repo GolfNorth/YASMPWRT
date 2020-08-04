@@ -17,12 +17,12 @@ namespace YASMPWRT.Data
                 "Levels/Level-1",
                 "Levels/Level-2",
                 "Levels/Level-3",
-                "Levels/Level-4",
-                "Levels/Level-5",
-                "Levels/Level-6",
-                "Levels/Level-7",
-                "Levels/Level-8",
                 "Levels/Level-9",
+                "Levels/Level-4",
+                "Levels/Level-7",
+                "Levels/Level-6",
+                "Levels/Level-8",
+                "Levels/Level-5",
                 "Levels/Level-Ending"
             };
         }
