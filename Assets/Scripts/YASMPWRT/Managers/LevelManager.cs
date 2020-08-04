@@ -24,6 +24,7 @@ namespace YASMPWRT.Managers
         private KeyController _key;
         private PlayerController _player;
         private bool _playerHasKey;
+        private bool _isLoading;
         private int _score;
         
         public LevelManager()
@@ -46,6 +47,8 @@ namespace YASMPWRT.Managers
             if (LevelsData.Instance.Levels.Length <= index) return;
 
             _currentLevelIndex = index;
+
+            _isLoading = true;
             
             Director.Instance.RunCoroutine(LoadLevel());
         }
@@ -95,6 +98,8 @@ namespace YASMPWRT.Managers
             {
                 _hints[i] = hintsView[i].Controller;
             }
+            
+            _isLoading = false;
         }
 
         public void RestartLevel()
@@ -170,7 +175,7 @@ namespace YASMPWRT.Managers
 
         public void EnterDoor()
         {
-            if (!_playerHasKey || _player.IsDead) return;
+            if (_isLoading || !_playerHasKey || _player.IsDead) return;
 
             _audioManager.PlaySoundEffect(SoundType.Success);
             
