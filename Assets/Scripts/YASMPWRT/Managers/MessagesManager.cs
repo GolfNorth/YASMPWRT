@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using UnityEngine;
 using YASMPWRT.Controllers;
 using YASMPWRT.Views;
@@ -13,6 +14,8 @@ namespace YASMPWRT.Managers
         private readonly GameManager _gameManager;
         private readonly InputManager _inputManager;
         private readonly MessageBoxController _messageBox;
+
+        public bool IsShown => _isShown;
 
         public MessagesManager()
         {
@@ -72,7 +75,14 @@ namespace YASMPWRT.Managers
 
         public void Hide()
         {
-            if (_messages.Length == 1)
+            
+            if (_messages?.Length > _index + 1)
+            {
+                _index++;
+                
+                Show(_messages[_index]);
+            }
+            else
             {
                 _index = 0;
                 _messages = null;
@@ -80,16 +90,16 @@ namespace YASMPWRT.Managers
                 _messageBox?.Hide();
         
                 _gameManager.Unpause();
-
-                _isShown = false;
-            }
-            else if (_messages?.Length > _index + 1)
-            {
-                _index++;
                 
-                Show(_messages[_index]);
+                Director.Instance.RunCoroutine(HideDelay());
             }
+        }
+
+        private IEnumerator HideDelay()
+        {
+            yield return null;
             
+            _isShown = false;
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using YASMPWRT.Interfaces;
+﻿using YASMPWRT.Interfaces;
 using YASMPWRT.Managers;
 using YASMPWRT.Models;
 using YASMPWRT.Structs;
@@ -17,8 +16,9 @@ namespace YASMPWRT.Controllers
         private readonly InputManager _inputManager;
         private readonly AudioManager _audioManager;
         private readonly EventManager _eventManager;
+        private readonly MessagesManager _messagesManager;
 
-        private bool IsActive => _view.gameObject.activeSelf;
+        private bool IsActive => _view.gameObject.activeSelf && !_messagesManager.IsShown;
 
         public MenuController(MenuView view, MenuItem[] menuItems)
         {
@@ -33,6 +33,7 @@ namespace YASMPWRT.Controllers
             _gameManager = Director.Instance.Get<GameManager>();
             _levelManager = Director.Instance.Get<LevelManager>();
             _audioManager = Director.Instance.Get<AudioManager>();
+            _messagesManager = Director.Instance.Get<MessagesManager>();
 
             _audioManager.PlayMusic();
 
